@@ -1,0 +1,23 @@
+.headerAbout{
+        background-color: rgb(190, 46, 132);
+}
+.bodyAbout{
+        background-color: turquoise;
+}
+.About{
+        font-size: 40%;
+}
+.muirtl-0 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+}
+img{
+        display: flex;
+        width: 20%;
+        height: 20%;
+        border-radius: 50%;
+}
+

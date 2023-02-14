@@ -1,0 +1,24 @@
+.contact{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    background-color: turquoise;
+}
+
+.detail{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+
+a{
+    color:blue
+}
+a:hover {
+    color: magenta;
+  }
+
+  a:active {
+    color: purple;
+  }
