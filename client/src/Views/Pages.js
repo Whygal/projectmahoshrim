@@ -13,11 +13,14 @@ import AnswerQuestion from '../components/AnswerQuestion/AnswerQuestion'
 import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
 
 const Pages = () => {
 
   return (
             <BrowserRouter>
+            <Header/>
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
@@ -35,8 +38,9 @@ const Pages = () => {
                                     <Route path="/UserManager" element={<UserManager/>}/>
                                     <Route path="/Admin" element={<Admin/>}/>
                             </Routes>
+                  <Footer />
             </BrowserRouter>
   )
 }
 
-export default Pages
+export default Pages;
