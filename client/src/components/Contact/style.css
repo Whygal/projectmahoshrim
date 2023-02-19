@@ -3,13 +3,15 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
-    background-color: turquoise;
+    background-color: rgba(6,179,163,255);
+    font-family: 'Amatic SC'
 }
 
 .detail{
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
+    font-family: 'Amatic SC'
 }
 
 a{
