@@ -1,5 +1,4 @@
 import React from 'react'
-import "./style.css"
 import {BrowserRouter ,Route, Routes} from "react-router-dom"
 import Main from "../components/Main/Main"
 import AskQuestion from "../components/AskQuestion/AskQuestion"

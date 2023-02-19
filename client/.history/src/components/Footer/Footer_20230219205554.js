@@ -15,7 +15,7 @@ const Footer = () => {
           שלום חברים, שמי הרב שניאור אני מתעסק בחינוך 10 שנים, מדריך הורים ונותן
       </p>
       </Box>
-      <Link to="/Contact" className="link" >
+      <Link to="/About" className="link" >
       <img src={logo} alt="Logo" className="logo" />
       </Link>
     </div>

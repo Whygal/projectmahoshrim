@@ -1,5 +1,4 @@
 import React from 'react'
-import "./style.css"
 import {BrowserRouter ,Route, Routes} from "react-router-dom"
 import Main from "../components/Main/Main"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
@@ -21,11 +20,11 @@ const Pages = () => {
 
   return (
             <BrowserRouter>
-            <div className='views'>
-            <div className='header'>
+            <section>
             <Header/>
-            </div>
-                                     <div className='main'>
+            </section>
+                      <div>
+                                      <section>
                                       <Routes>
                                               <Route path="/Login" element={<Login/>}/>
                                               <Route path="/Register" element={<Register/>}/>
@@ -43,11 +42,11 @@ const Pages = () => {
                                               <Route path="/UserManager" element={<UserManager/>}/>
                                               <Route path="/Admin" element={<Admin/>}/>
                                       </Routes>
-                                    </div>
-                 <div className='footer'>
+                                    </section>
+                          </div>      
+                <section>
                <Footer /> 
-              </div>
-               </div> 
+              </section>
             </BrowserRouter>
   )
 }

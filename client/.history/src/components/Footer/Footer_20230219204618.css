@@ -4,6 +4,7 @@
     align-items: center;
     background-color: #0ab1a0;
     color: white;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -16,14 +17,5 @@
     margin-top: 20px;
 }
 .link{
-        text-decoration: none;
-      color: rgba(230,37,98,255);
-}
-
-.link:hover{
-    color: blueviolet;
-}
-.text{
-    display: flex;
-    flex-direction: column;
+    
 }

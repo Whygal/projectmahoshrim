@@ -1,5 +1,5 @@
 import React from 'react'
-// import YouTube from 'react-youtube'
+import YouTube from 'react-youtube'
 
 const VideoCorses = () => {
   
@@ -14,8 +14,8 @@ const VideoCorses = () => {
 
   return (
     <div>
-      {/* <YouTube id='PTqRJv-nIAw' opts={opts}>
-      </YouTube> */}
+      <YouTube id='PTqRJv-nIAw' opts={opts}>
+      </YouTube>
     </div>
   )
 }

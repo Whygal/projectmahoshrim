@@ -1,6 +1,7 @@
+import { Button, Typography } from "@mui/material";
+import * as React from "react";
 import { Link } from 'react-router-dom';
 import logo from "../../static/images/logo.jpeg";
-import { Box } from '@mui/system';
 import "./Footer.css";
 
 const Footer = () => {
@@ -15,7 +16,7 @@ const Footer = () => {
           שלום חברים, שמי הרב שניאור אני מתעסק בחינוך 10 שנים, מדריך הורים ונותן
       </p>
       </Box>
-      <Link to="/Contact" className="link" >
+      <Link to="/About" className="link" >
       <img src={logo} alt="Logo" className="logo" />
       </Link>
     </div>
