@@ -1,12 +1,23 @@
 .headerAbout{
-        background-color: rgb(190, 46, 132);
+        background-color: #f31e5d;
+        width: 100%;
+        display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
 }
 .bodyAbout{
-        background-color: turquoise;
-}
-.About{
+        background-color: #0ab1a0;
+        width: 100%;
         font-size: 40%;
+        text-align: center;
 }
+.textBodyAbout{
+        width: 50%;
+        padding-right: 380px;
+}
+
 .muirtl-0 {
     display: flex;
     flex-wrap: wrap;
