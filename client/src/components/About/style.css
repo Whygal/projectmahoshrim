@@ -1,29 +1,26 @@
-.headerAbout{
-        background-color: #f31e5d;
-        width: 100%;
-        display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: center;
-    text-align: center;
-}
-.bodyAbout{
-        background-color: #0ab1a0;
-        width: 100%;
-        font-size: 40%;
-        text-align: center;
-}
-.textBodyAbout{
-        width: 50%;
-        padding-right: 380px;
-}
-
-.muirtl-0 {
+.about{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-content: center;
-    text-align: center;
+    text-align: center;  
+}
+.headerAbout{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(230,37,98,255);
+        width: 100%;
+        font-family: 'Amatic SC'
+}
+.bodyAbout{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: rgba(6,179,163,255);
+        width: 100%;
+        font-family: 'Amatic SC'
 }
 .aboutLogoImage{
         display: flex;
