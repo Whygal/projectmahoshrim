@@ -7,9 +7,9 @@ import NotFound from './components/NotFound/NotFound';
 function App() {
   return (
     <div>
-            <Header />
+            {/* <Header /> */}
             <Pages />
-            <Footer />
+            {/* <Footer /> */}
      </div>
   );
 }

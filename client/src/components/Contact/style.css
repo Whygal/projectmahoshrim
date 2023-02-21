@@ -3,7 +3,8 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
-    background-color: turquoise;
+    background-color: #0ab1a0;
+    width: 100vw;
 }
 
 .detail{

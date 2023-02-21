@@ -24,7 +24,7 @@ const About = () => {
                       <div className='headerAbout'>
                       אודות:
                       {/* <Box className='About'> */}
-                      <img src={logo} alt=""/>
+                      <img className='aboutLogoImage' src={logo} alt=""/>
                       {/* </Box> */}
                       </div>
                       <div className='bodyAbout'>
