@@ -16,7 +16,6 @@ import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
-import YoutubeEmbed from '../components/VideoCourses/YouTubeEmbed'
 
 const Pages = () => {
 
@@ -33,7 +32,6 @@ const Pages = () => {
                                               <Route path="/" element={<Main/>}/>
                                               <Route path="/Question" element={<AskQuestion/>}/>
                                               <Route path="/VideoCourses" element={<VideoCourses/>}/>
-                                              {/* <Route path="/singleVideoId" element={<YoutubeEmbed/>}/> */}
                                               <Route path="/Tips" element={<Tips/>}/>
                                               <Route path="/Contact" element={<Contact/>}/>
                                               <Route path="/About" element={<About/>}/>
