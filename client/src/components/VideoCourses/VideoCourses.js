@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import YoutubeEmbed from "./YouTubeEmbed"
 import "./VideoCourses.css"
-import key from "./key"
+import key from "../../../key/key"
   const VideoCorses = () => {
     const [videos, setVideos] = useState([])
     
