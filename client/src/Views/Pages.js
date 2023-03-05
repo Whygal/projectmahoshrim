@@ -33,7 +33,7 @@ const Pages = () => {
                                               <Route path="/" element={<Main/>}/>
                                               <Route path="/Question" element={<AskQuestion/>}/>
                                               <Route path="/VideoCourses" element={<VideoCourses/>}/>
-                                              {/* <Route path="/singleVideoId" element={<YoutubeEmbed/>}/> */}
+                                              {/* <Route path="/singleVideoId" element={<YoutubeEmbed/>}/>  */}
                                               <Route path="/Tips" element={<Tips/>}/>
                                               <Route path="/Contact" element={<Contact/>}/>
                                               <Route path="/About" element={<About/>}/>

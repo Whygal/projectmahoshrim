@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import YoutubeEmbed from "./YouTubeEmbed"
 import "./VideoCourses.css"
-
+import key from "./key"
   const VideoCorses = () => {
     const [videos, setVideos] = useState([])
     
     const getVideos = async () => {
       try{
-        const response = await fetch("https://youtube.googleapis.com/youtube/v3/search?key=AIzaSyDQEhBBP-5uW0-DRhn-6rr1aFKJa5SoQtQ&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20")
+        const response = await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${key}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`)
         const answer = await response.json()
         const data = answer.items
         data.pop()
