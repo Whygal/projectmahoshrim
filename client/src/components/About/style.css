@@ -22,7 +22,7 @@
         width: 100%;
         font-family: 'Amatic SC'
 }
-img{
+.aboutLogoImage{
         display: flex;
         width: 20%;
         height: 20%;

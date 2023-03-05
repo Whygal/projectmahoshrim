@@ -10,7 +10,9 @@ const About = () => {
                 <Typography variant="h2"className='about'>
                       <div className='headerAbout'>
                       אודות:
-                      <img src={require('./meusharimImg.jpg')} alt=""/>
+                      {/* <Box className='About'> */}
+                      <img className='aboutLogoImage' src={logo} alt=""/>
+                      {/* </Box> */}
                       </div>
                       </Typography>
                       <Typography variant='h5' >

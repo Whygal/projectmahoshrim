@@ -3,7 +3,7 @@ import "./style.css"
 import {BrowserRouter ,Route, Routes} from "react-router-dom"
 import Main from "../components/Main/Main"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
-import VideoCourses from "../components/VideoCorses/VideoCorses"
+import VideoCorses from "../components/VideoCorses/VideoCorses"
 import Tips from "../components/Tips/Tips"
 import Contact from "../components/Contact/Contact"
 import NotFound from "../components/NotFound/NotFound"
@@ -25,12 +25,38 @@ const Pages = () => {
             <div className='views'>
             <div className='header'>
             <Header/>
+<<<<<<< HEAD
+            </div>
+                                     <div className='main'>
+                                      <Routes>
+                                              <Route path="/Login" element={<Login/>}/>
+                                              <Route path="/Register" element={<Register/>}/>
+                                              <Route path="/" element={<Main/>}/>
+                                              <Route path="/Question" element={<AskQuestion/>}/>
+                                              <Route path="/VideoCorses" element={<VideoCorses/>}/>
+                                              <Route path="/Tips" element={<Tips/>}/>
+                                              <Route path="/Contact" element={<Contact/>}/>
+                                              <Route path="/About" element={<About/>}/>
+                                              <Route path="*" element={<NotFound/>}/>
+
+                                              <Route path='/AnswerQuestion' element={<AnswerQuestion/>}/>
+                                              <Route path="/postQuestion" element={<PostQuestion/>}/>
+                                              
+                                              <Route path="/UserManager" element={<UserManager/>}/>
+                                              <Route path="/Admin" element={<Admin/>}/>
+                                      </Routes>
+                                    </div>
+                 <div className='footer'>
+               <Footer /> 
+              </div>
+               </div> 
+=======
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/Question" element={<AskQuestion/>}/>
-                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
+                                    <Route path="/VideoCorses" element={<VideoCorses/>}/>
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
                                     <Route path="/About" element={<About/>}/>
@@ -42,8 +68,7 @@ const Pages = () => {
                                     <Route path="/Admin" element={<Admin/>}/>
                             </Routes>
                   <Footer />
-                  </div>
-                  </div>  
+>>>>>>> eb430e586c4aa26565c128ded605cb810f809116
             </BrowserRouter>
   )
 }

@@ -1,0 +1,54 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    list-style: none;
+    background-color: #0ab1a0;
+    height: 200px;
+    width: 100vw;
+}
+
+.login-register{
+   border-radius: 50%;
+   width: 50px;
+}
+
+.divLogoImg{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.logoImg{
+    display: flex;
+    text-align: center;
+    width: 170px;
+    border-radius: 50%;
+}
+
+.pages{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+}
+
+.line{
+    display: flex;
+    width: 120px;
+    height: 50px;
+    border-radius: 15%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color:white ;
+    text-decoration: none;
+}
+ 
+.line:hover{
+    width: 150px;
+    font-size: large;
+    transition: 0.4s;
+    color: white;
+}
