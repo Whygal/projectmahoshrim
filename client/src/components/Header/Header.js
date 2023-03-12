@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
-
+import logo from "../../images/LOGO.jpg"
 const login = require('../../images/LOGIN.png')
 const main = require('../Main/Main')
 
