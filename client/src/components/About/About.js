@@ -2,6 +2,7 @@ import React from 'react'
 import "./style.css"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
+import logo from "../../images/LOGO.jpg"
 
 const About = () => {
   const logo = require('../../images/LOGO.jpg')

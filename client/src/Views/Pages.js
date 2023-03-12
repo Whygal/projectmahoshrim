@@ -1,8 +1,9 @@
 import React from 'react'
 import {Route, Routes} from "react-router-dom"
-import Main from "../components/Main/Main"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
-// import VideoCorses from "../components/VideoCorses/VideoCorses"
+import "./style.css"
+import Main from "../components/Main/Main"
+import VideoCourses from "../components/VideoCourses/VideoCourses"
 import Tips from "../components/Tips/Tips"
 import Contact from "../components/Contact/Contact"
 import NotFound from "../components/NotFound/NotFound"
@@ -25,6 +26,7 @@ const Pages = () => {
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
+                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/Question" element={<AskQuestion/>}/>
                                     <Route path="/Tips" element={<Tips/>}/>

@@ -16,3 +16,15 @@
     margin-top: 20px;
     border-radius: 50%;
 }
+.link{
+        text-decoration: none;
+      color: rgba(230,37,98,255);
+}
+
+.link:hover{
+    color: blueviolet;
+}
+.text{
+    display: flex;
+    flex-direction: column;
+}

@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 ./history
+.history
+.env
+./client/src/Key/key.js
 # testing
 /coverage
 
