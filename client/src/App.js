@@ -7,9 +7,7 @@ import Pages from './Views/Pages';
 function App() {
   return (
     <div>
-            {/* <Header /> */}
             <Pages />
-            {/* <Footer /> */}
      </div>
   );
 }

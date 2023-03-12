@@ -4,7 +4,6 @@
     align-items: center;
     background-color: #0ab1a0;
     color: white;
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -15,4 +14,5 @@
     width: 200px;
     margin-bottom: 20px;
     margin-top: 20px;
+    border-radius: 50%;
 }

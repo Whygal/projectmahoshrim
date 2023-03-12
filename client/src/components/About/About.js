@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 
 const About = () => {
+  const logo = require('../../images/LOGO.jpg')
    
   return (
     <div>
