@@ -3,8 +3,8 @@ import "./style.css";
 import YoutubeEmbed from "./YoutubeEmbed";
 import {key} from "../../key/key"
 
-export default function App() {
-const [videos, setsVideo] = useState({})
+export default function VideoCourses() {
+const [videos, setVideos] = useState({})
 
 const getVideos = async () => {
   try{
@@ -12,7 +12,8 @@ const getVideos = async () => {
     const answer = await response.json()
     const data = answer.items
     data.pop()
-    setsVideo(data)
+    setVideos(data)
+    console.log(data)
     } catch (err){
   console.log(err)
 }
@@ -25,7 +26,7 @@ useEffect(()=>{
   return (
     <div>
         <div className='allTheVideos'>
-       {videos.map((v) => 
+       {/* {videos.map((v) => 
        <YoutubeEmbed
        key={v}
        embedId={v.id.videoId}
@@ -33,7 +34,7 @@ useEffect(()=>{
        thumbnails={v.snippet.thumbnails.default.url}
        />
        )
-       }
+       } */}
       </div>
     </div>
   );
