@@ -23,14 +23,14 @@ const Pages = () => {
   return (
             <BrowserRouter>
             <div className='views'>
-            <div className='header'>
+            {/* <div className='header'> */}
             <Header/>
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/Question" element={<AskQuestion/>}/>
-                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
+                                    {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
                                     <Route path="/About" element={<About/>}/>
@@ -43,7 +43,7 @@ const Pages = () => {
                             </Routes>
                   <Footer />
                   </div>
-                  </div>  
+                  {/* </div>   */}
             </BrowserRouter>
   )
 }
