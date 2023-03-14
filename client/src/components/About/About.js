@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import logo from "../../images/LOGO.jpg"
 
 const About = () => {
+  const logo = require('../../images/LOGO.jpg')
    
   return (
     <div>

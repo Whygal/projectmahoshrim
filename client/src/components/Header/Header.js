@@ -2,7 +2,6 @@ import React from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
 import logo from "../../images/LOGO.jpg"
-
 const login = require('../../images/LOGIN.png')
 const main = require('../Main/Main')
 
@@ -22,7 +21,7 @@ const Header = () => {
             /
             <Link to='/AskQuestion' className='line'><li>שאל את הרב</li></Link>
             /
-            <Link to='/About' className='line'><li>כל השיעורים</li></Link>
+            <Link to='/VideoCourses' className='line'><li>כל השיעורים</li></Link>
             /
             <Link to='/Tips' className='line'><li>טיפים</li></Link>
             /
