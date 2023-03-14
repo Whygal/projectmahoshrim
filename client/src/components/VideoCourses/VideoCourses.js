@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import "./style.css";
 import YoutubeEmbed from "./YoutubeEmbed";
 import {key} from "../../key/key"
+// import { videos } from "./check";
 
 export default function VideoCourses() {
 const [videos, setVideos] = useState({})
+// console.log(videos)
 
 const getVideos = async () => {
   try{

@@ -2,6 +2,9 @@ import './App.css';
 import Pages from './Views/Pages';
 
 function App() {
+
+
+
   return (
     <div>
             <Pages />
