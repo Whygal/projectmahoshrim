@@ -43,6 +43,7 @@ app.post('/Register', (req,res)=> {
             password: hash,
             email: email
         }).then(()=> {
+            res.status(200).send({response})
             res.json("USER REGISTERED");
         }).catch((err)=> {
             if(err)
