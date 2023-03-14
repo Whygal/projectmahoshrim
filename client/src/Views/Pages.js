@@ -21,7 +21,9 @@ import Admin from '../components/Admin/Admin'
 const Pages = () => {
 
   return (
-            <div>
+            <BrowserRouter>
+            <div className='views'>
+            <div className='header'>
             <Header/>
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
@@ -29,6 +31,7 @@ const Pages = () => {
                                     <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/Question" element={<AskQuestion/>}/>
+                                    {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
                                     <Route path="/About" element={<About/>}/>
@@ -40,7 +43,9 @@ const Pages = () => {
                                     <Route path="/Admin" element={<Admin/>}/>
                             </Routes>
                   <Footer />
-            </div>
+                  </div>
+                  </div>  
+            </BrowserRouter>
   )
 }
 

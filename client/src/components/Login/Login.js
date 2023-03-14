@@ -1,3 +1,6 @@
+import React, {useState} from 'react'
+import Axios from 'axios'
+import { Link } from 'react-router-dom';
 import React from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
@@ -5,13 +8,13 @@ import { Link } from 'react-router-dom'
 
 const Login = () => {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [usernameLog, setUsernameLog] = useState('')
+    const [passwordLog, setPasswordLog] = useState('')
     const [loginStatus, setLoginStatus] = useState('')
 
     const login = ()=> {
       Axios.post('http://localhost:8000/Login', 
-      {username: username, password: password})
+      {username: usernameLog, password: passwordLog})
       .then((response)=>{
         if(response.data.message){
           setLoginStatus(response.data.message)
@@ -26,8 +29,8 @@ const Login = () => {
   return (
     <div>
         <h1>התחברות</h1>
-        <input type={'text'} placeholder='שם משתמש' onChange={(e)=>{setUsername(e.target.value)}}></input>
-        <input type={'password'} placeholder='סיסמא' onChange={(e)=>{setPassword(e.target.value)}}></input>
+        <input type={'text'} placeholder='שם משתמש' onChange={(e)=>{setUsernameLog(e.target.value)}}></input>
+        <input type={'password'} placeholder='סיסמא' onChange={(e)=>{setPasswordLog(e.target.value)}}></input>
         <button onClick={login}>כניסה</button>
         <br></br>
         <Link to='/Register'>עוד אין לך חשבון?</Link>

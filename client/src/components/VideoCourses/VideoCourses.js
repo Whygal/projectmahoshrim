@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./style.css";
 import YoutubeEmbed from "./YoutubeEmbed";
-import {key} from "../../Key/Key"
+import {key} from "../../key/key"
 
-export default function VideoCourses() {
-const [videos, setVideos] = useState({})
+export default function App() {
+const [videos, setsVideo] = useState({})
 
 const getVideos = async () => {
   try{
@@ -12,22 +12,19 @@ const getVideos = async () => {
     const answer = await response.json()
     const data = answer.items
     data.pop()
-    setVideos(data)
-    console.log(data);
+    setsVideo(data)
     } catch (err){
   console.log(err)
- 
 }
 }
 
-useEffect(()=>{
-  getVideos()
-})
+// useEffect(()=>{
+//   getVideos()
+// })
 
   return (
     <div>
-      gjgjhk
-        {/* <div className='allTheVideos'>
+        <div className='allTheVideos'>
        {videos.map((v) => 
        <YoutubeEmbed
        key={v}
@@ -36,8 +33,8 @@ useEffect(()=>{
        thumbnails={v.snippet.thumbnails.default.url}
        />
        )
-       } 
-       </div> */}
+       }
+      </div>
     </div>
   );
 }
