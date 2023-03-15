@@ -21,7 +21,6 @@ import Admin from '../components/Admin/Admin'
 const Pages = () => {
 
   return (
-            <BrowserRouter>
             <div className='views'>
             <div className='header'>
             <Header/>
@@ -31,7 +30,6 @@ const Pages = () => {
                                     <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/Question" element={<AskQuestion/>}/>
-                                    {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
                                     <Route path="/About" element={<About/>}/>
@@ -45,7 +43,6 @@ const Pages = () => {
                   <Footer />
                   </div>
                   </div>  
-            </BrowserRouter>
   )
 }
 
