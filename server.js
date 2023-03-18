@@ -44,7 +44,6 @@ const AnswerSchema = new Schema({
   q_id:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "QuestionsSchema",
-    strictPopulate:false,
     require: true
   },
   
@@ -119,7 +118,7 @@ app.put('/api/Q/updateQ/:id', async (req,res) => {
   try {
       const updateQ = await Q.findOne({_id: id})
     if (!updateQ) {
-      res.status(404).send({message: "todo does not exist"})
+      res.status(404).send({message: "Q does not exist"})
     }
     updates.forEach((update) => (updateQ[update] = req.body[update]));
     await updateQ.save();
@@ -147,13 +146,15 @@ app.delete('/api/delete/deleteOneQ/:id', async (req,res) => {
   }
 })
 
+//A
+
 app.post('/api/addOneA', async(req, res)=> {
   try{
           const answer = req.body.a
           const q_id = req.body.q_id
           const NewA = new A({
-            answer:answer,
-            q_id:q_id,
+            a:answer,
+            q_id:q_id
           })
           await NewA.save()
           res.status(200).send(NewA)
@@ -173,10 +174,10 @@ app.get('/api/getAllA', async(req, res)=> {
   }
 })
 
-app.get('/api/getOneA/:id', async(req, res)=> {
+app.get('/api/getOneAByQ/:id', async(req, res)=> {
   try{
           const { id } = req.params
-          const Answer = await Q.findOne({id: id}).populate("q_id")
+          const Answer = await A.findOne({q_id: id})
           console.log(Answer)
           res.status(200).send(Answer)
   }catch(e){

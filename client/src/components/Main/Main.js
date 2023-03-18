@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import SearchBar from "../SearchBar/SearchBar"
+import "./style.css"
+// import SearchBar from "../SearchBar/SearchBar"
+import Question from '../Question/Question'
 
 const Main = () => {
-  
   const [questions, setQuestions] = useState([])
 
   const getQ = async () => {
-    const response = await fetch(`https://data.mongodb-api.com/app/data-nfwbt/endpoint/data/v1/action/findOne/Q&A/qs`)
+    const response = await fetch(`http://localhost:8000/api/getAllQ`)
     const answer = await response.json()
     setQuestions(answer)
   }
 
-  useEffect(()=>{getQ()},[])
-  console.log(questions)
+  useEffect(()=>{getQ()})
 
   return (
-    <div><SearchBar /></div>
+    <div>
+    <div className='qDiv'>
+      {/* <SearchBar /> */}
+    {questions.map((q)=>
+    <Question
+    key={q._id}
+    q={q.q}
+    />)}
+    </div>
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 import { Radio, RadioGroup, FormControlLabel, Checkbox } from '@mui/material'
 import React from 'react'
 
-const Question = () => {
+const AskQuestion = () => {
   return (
     <div>
      <label>מה השאלה?</label>
@@ -13,4 +13,4 @@ const Question = () => {
   )
 }
 
-export default Question
+export default AskQuestion

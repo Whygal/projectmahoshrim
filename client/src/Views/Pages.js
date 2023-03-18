@@ -23,14 +23,14 @@ const Pages = () => {
 
   return (
             <div className='views'>
-            <div className='header'>
+            <div className='page'>
             <Header/>
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
                                     <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
-                                    <Route path="/Question" element={<AskQuestion/>}/>
+                                    <Route path="/AskQuestion" element={<AskQuestion/>}/>
                                     {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
