@@ -44,6 +44,7 @@ const AnswerSchema = new Schema({
   q_id:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "QuestionsSchema",
+    strictPopulate:false,
     require: true
   },
   
@@ -105,6 +106,7 @@ app.get('/api/getAllQ', async(req, res)=> {
 })
 
 app.put('/api/Q/updateQ/:id', async (req,res) => {
+  const { id } = req.params
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every((update) =>
   allowedUpdate.includes(update)
@@ -121,7 +123,7 @@ app.put('/api/Q/updateQ/:id', async (req,res) => {
     }
     updates.forEach((update) => (updateQ[update] = req.body[update]));
     await updateQ.save();
-    res.status(200).send(todo)
+    res.status(200).send(updateQ)
   } catch (e) {
       console.log(e)
       res.status(500).send({message:e})
@@ -155,6 +157,28 @@ app.post('/api/addOneA', async(req, res)=> {
           })
           await NewA.save()
           res.status(200).send(NewA)
+  }catch(e){
+      console.log(e)
+      res.status(500).send({message:e})
+  }
+})
+
+app.get('/api/getAllA', async(req, res)=> {
+  try{
+          const Answers = await A.find({})
+          res.status(200).send(Answers)
+  }catch(e){
+      console.log(e)
+      res.status(500).send({message:e})
+  }
+})
+
+app.get('/api/getOneA/:id', async(req, res)=> {
+  try{
+          const { id } = req.params
+          const Answer = await Q.findOne({id: id}).populate("q_id")
+          console.log(Answer)
+          res.status(200).send(Answer)
   }catch(e){
       console.log(e)
       res.status(500).send({message:e})

@@ -12,6 +12,7 @@ const Main = () => {
 
   useEffect(()=>{getQ()},[])
   console.log(questions)
+
   return (
     <div>{""}</div>
   )
