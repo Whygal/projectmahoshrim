@@ -7,7 +7,7 @@
 ./history
 .history
 .env
-./key
+./client/src/Key/key.js
 # testing
 /coverage
 

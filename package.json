@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "dependencies": {
     "6": "^0.0.1",
@@ -41,7 +41,6 @@
     "function-bind": "^1.1.1",
     "get-intrinsic": "^1.2.0",
     "glob-parent": "^5.1.2",
-    "googleapis": "^113.0.0",
     "has": "^1.0.3",
     "has-flag": "^3.0.0",
     "has-symbols": "^1.0.3",
@@ -116,17 +115,20 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Whygal/projectmahoshrim.git"
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js && ./client && npm start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Whygal/projectmahoshrim/issues"
-  },
-  "homepage": "https://github.com/Whygal/projectmahoshrim#readme"
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "concurrently": "^7.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.0",
+    "nodemon": "^2.0.20"
+  }
 }

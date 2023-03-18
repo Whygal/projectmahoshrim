@@ -31,9 +31,9 @@ const getVideos = async () => {
 }
 }
 
-useEffect(()=>{
-  getVideos()
-})
+// useEffect(()=>{
+//   getVideos()
+// })
 
   return (
     <div>

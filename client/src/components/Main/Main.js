@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-// import {func} from './axios.js'
+import SearchBar from "../SearchBar/SearchBar"
+
 const Main = () => {
   
   const [questions, setQuestions] = useState([])
@@ -14,7 +15,7 @@ const Main = () => {
   console.log(questions)
 
   return (
-    <div>{""}</div>
+    <div><SearchBar /></div>
   )
 }
 
