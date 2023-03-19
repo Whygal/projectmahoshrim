@@ -22,4 +22,4 @@ export const DummyQA = {
     '\n'+
     'בהצלחה!'
 }
-export const allowedUpdate = ["q"]
+export const allowedUpdate = ["q", "a"]

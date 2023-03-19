@@ -7,7 +7,7 @@ const SearchBar = () => {
 
     const handleChange = (e)=> {
         e.preventDefault();
-        setSearchInput(e.traget.value)
+        setSearchInput(e.target.value)
     } 
     if(searchInput.length > 0){
         fruitsArr.filter((fruit)=> {

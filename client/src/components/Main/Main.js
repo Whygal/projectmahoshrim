@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import "./style.css"
-// import SearchBar from "../SearchBar/SearchBar"
 import Question from '../Question/Question'
 
 const Main = () => {
-  const [questions, setQuestions] = useState([])
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([])
 
   const getQ = async () => {
-    const response = await fetch(`http://localhost:8000/api/getAllQ`)
+    const response = await fetch(`http://localhost:8000/api/getAllA`)
     const answer = await response.json()
-    setQuestions(answer)
+    setQuestionsAndAnswers(answer)
   }
 
   useEffect(()=>{getQ()})
@@ -18,10 +17,11 @@ const Main = () => {
     <div>
     <div className='qDiv'>
       {/* <SearchBar /> */}
-    {questions.map((q)=>
+    {questionsAndAnswers.map((q)=>
     <Question
     key={q._id}
-    q={q.q}
+    q={q.q_id.q}
+    a={q.a}
     />)}
     </div>
     </div>

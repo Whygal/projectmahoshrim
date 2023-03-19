@@ -19,7 +19,7 @@ const QuestionsSchema = new Schema({
 
   q:{
     type: String,
-    require: true,
+    required: true,
   },
 
   agreeToPublish:{
@@ -38,13 +38,13 @@ const AnswerSchema = new Schema({
 
   a:{
     type: String,
-    require: true
+    required: true
   },
 
   q_id:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "QuestionsSchema",
-    require: true
+    ref: "Q",
+    required: true
   },
   
   date:{
@@ -158,6 +158,7 @@ app.post('/api/addOneA', async(req, res)=> {
           })
           await NewA.save()
           res.status(200).send(NewA)
+          console.log(NewA)
   }catch(e){
       console.log(e)
       res.status(500).send({message:e})
@@ -166,7 +167,7 @@ app.post('/api/addOneA', async(req, res)=> {
 
 app.get('/api/getAllA', async(req, res)=> {
   try{
-          const Answers = await A.find({})
+          const Answers = await A.find({}).populate("q_id")
           res.status(200).send(Answers)
   }catch(e){
       console.log(e)
@@ -177,12 +178,28 @@ app.get('/api/getAllA', async(req, res)=> {
 app.get('/api/getOneAByQ/:id', async(req, res)=> {
   try{
           const { id } = req.params
-          const Answer = await A.findOne({q_id: id})
+          const Answer = await A.findOne({q_id: id}).execPopulate()
           console.log(Answer)
           res.status(200).send(Answer)
   }catch(e){
       console.log(e)
       res.status(500).send({message:e})
+  }
+})
+
+app.delete('/api/delete/deleteOneA/:id', async (req,res) => {
+  try{
+      const { id } = req.params
+      const deletedA = await A.findOneAndDelete({id: id})
+      if(!deletedA){
+          res.status(404).send({message:"no such todo with the specified id"})
+      }
+      res.status(200).send(deletedA)
+
+  } catch(e){
+      console.log(e)
+      res.status(500).send({message:e})
+
   }
 })
 
