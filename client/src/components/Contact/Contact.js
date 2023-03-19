@@ -16,7 +16,9 @@ const Contact = () => {
          <a href='mailto:meusharim5781@gmail.com'>meusharim5781@gmail.com</a> {text2}
       </Box>
       <Box className="detail">
-         <a href='https://github.com/Whygal'>https://github.com/Whygal</a> {text3}
+         <a href='https://github.com/Whygal'>https://github.com/Whygal</a> <span>Yaniv Galili:</span>
+         <a href='https://github.com/IsraelEidan'>https://github.com/IsraelEidan</a> <span>Israel Eidan:</span> 
+         <a href='https://github.com/YarinSweed'>https://github.com/YarinSweed</a> <span>Yarin Sweed:</span>  {text3}
       </Box>
     </Typography>
   )

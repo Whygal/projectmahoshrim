@@ -1,34 +1,28 @@
 import React, {useState} from 'react'
+import data from './data'
+import { Link } from 'react-router-dom'
 
 const SearchBar = () => {
 
-    const [searchInput, setSearchInput] = useState("");
-    const fruitsArr = ['apple', 'banana', 'kiwi']
+    const [results, setResults] = useState(data)
 
-    const handleChange = (e)=> {
-        e.preventDefault();
-        setSearchInput(e.traget.value)
-    } 
-    if(searchInput.length > 0){
-        fruitsArr.filter((fruit)=> {
-            return fruit.match(searchInput)
-        })
+    const handleSumbit = (e)=> e.preventDefault()
+
+    const handleSearchChange = (e)=> {
+        if(!e.target.value) return setResults(data) 
+        const resultsArr = data.filter
+        (que=> que.title.includes(e.target.value) || que.body.includes(e.target.value))
+        setResults(resultsArr)
     }
 
-  return (
-    <div>
+        
 
-<input type='text' placeholder='..חפש שאלה' onChange={handleChange} value={searchInput}></input>
-<table>
-    <tr>
-        <th>Fruit</th>
-    </tr>
-    {fruitsArr.map((fruit, index)=> {
-        <tr>
-            <td>{fruitsArr}</td>
-        </tr>
-    })}
-</table>
+        const questions = results.map(prop=> <div key={prop.id}><p>{prop.body}</p></div>)
+        const content = results.length ? questions : <div><h4>לא נמצאו נתונים</h4><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
+  return (
+    <div className='search' onSubmit={handleSumbit}>
+        <input type='text' className='search-input' placeholder='..חפש שאלה' onChange={handleSearchChange}></input>
+        <div>{content}</div>
     </div>
   )
 }

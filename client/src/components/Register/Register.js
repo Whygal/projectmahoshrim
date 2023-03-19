@@ -1,10 +1,6 @@
 import React, {useState} from 'react'
 import Axios from 'axios'
 
-import React from 'react'
-import Axios from 'axios'
-import { useState } from 'react'
-
 const Register = () => {
 
   const [usernameReg, setUsernameReg] = useState('');
