@@ -21,10 +21,10 @@ import Admin from '../components/Admin/Admin'
 const Pages = () => {
 
   return (
-            <BrowserRouter>
+            
             <div className='views'>
-            <div className='header'>
             <Header/>
+                          <div className='pages'>
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
@@ -42,10 +42,9 @@ const Pages = () => {
                                     <Route path="/UserManager" element={<UserManager/>}/>
                                     <Route path="/Admin" element={<Admin/>}/>
                             </Routes>
+                          </div>
                   <Footer />
-                  </div>
-                  </div>  
-            </BrowserRouter>
+                  </div> 
   )
 }
 
