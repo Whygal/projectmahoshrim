@@ -18,11 +18,12 @@ import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
 
 
+
 const Pages = () => {
 
   return (
-            
             <div className='views'>
+            <div className='page'>
             <Header/>
                           <div className='pages'>
                             <Routes>
@@ -30,7 +31,7 @@ const Pages = () => {
                                     <Route path="/Register" element={<Register/>}/>
                                     <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
-                                    <Route path="/Question" element={<AskQuestion/>}/>
+                                    <Route path="/AskQuestion" element={<AskQuestion/>}/>
                                     {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
@@ -44,7 +45,9 @@ const Pages = () => {
                             </Routes>
                           </div>
                   <Footer />
-                  </div> 
+                  </div>
+                  </div>  
+
   )
 }
 
