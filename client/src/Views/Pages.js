@@ -25,6 +25,7 @@ const Pages = () => {
             <div className='views'>
             <div className='page'>
             <Header/>
+                          <div className='pages'>
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
@@ -42,9 +43,11 @@ const Pages = () => {
                                     <Route path="/UserManager" element={<UserManager/>}/>
                                     <Route path="/Admin" element={<Admin/>}/>
                             </Routes>
+                          </div>
                   <Footer />
                   </div>
                   </div>  
+
   )
 }
 

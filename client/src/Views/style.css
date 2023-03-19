@@ -1,4 +1,3 @@
-.page{
-    display: flex;
-    flex-direction: column;
+.pages{
+    min-height: 70vh;
 }
