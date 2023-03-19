@@ -6,7 +6,7 @@ const SearchBar = () => {
 
     const [results, setResults] = useState(data)
 
-    const handleSumbit = (e)=> e.preventDefault()
+   const handleSumbit = (e)=> e.preventDefault()
 
     const handleSearchChange = (e)=> {
         if(!e.target.value) return setResults(data) 

@@ -1,11 +1,29 @@
-import React from 'react'
-import SearchBar from '../SearchBar/SearchBar'
+import React, { useEffect, useState } from 'react'
+import "./style.css"
+import Question from '../Question/Question'
 
 const Main = () => {
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([])
+
+  const getQ = async () => {
+    const response = await fetch(`http://localhost:8000/api/getAllA`)
+    const answer = await response.json()
+    setQuestionsAndAnswers(answer)
+  }
+
+  useEffect(()=>{getQ()})
 
   return (
     <div>
-      <SearchBar />
+    <div className='qDiv'>
+      {/* <SearchBar /> */}
+    {questionsAndAnswers.map((q)=>
+    <Question
+    key={q._id}
+    q={q.q_id.q}
+    a={q.a}
+    />)}
+    </div>
     </div>
   )
 }
