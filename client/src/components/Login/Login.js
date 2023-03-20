@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Axios from 'axios'
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../Constants/Const';
 
 const Login = () => {
 
@@ -9,7 +10,7 @@ const Login = () => {
     const [loginStatus, setLoginStatus] = useState('')
 
     const login = ()=> {
-      Axios.post('http://localhost:8000/Login', 
+      Axios.post(`${BASE_URL}/Login`, 
       {username: usernameLog, password: passwordLog})
       .then((response)=>{
         if(response.data.message){

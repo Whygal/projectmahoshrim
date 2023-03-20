@@ -6,6 +6,8 @@ const SearchBar = () => {
 
     const [results, setResults] = useState(data)
 
+    // const dataFromServer = await fetch('http://localhost:8000/mongo')
+
    const handleSumbit = (e)=> e.preventDefault()
 
     const handleSearchChange = (e)=> {
@@ -23,6 +25,7 @@ const SearchBar = () => {
     <div className='search' onSubmit={handleSumbit}>
         <input type='text' className='search-input' placeholder='..חפש שאלה' onChange={handleSearchChange}></input>
         <div>{content}</div>
+        <p> "whatsaap"</p>
     </div>
   )
 }

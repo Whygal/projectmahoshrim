@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import "./style.css"
 import Question from '../Question/Question'
+import SearchBar from '../SearchBar/SearchBar'
 
 const Main = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([])
 
   const getQ = async () => {
-    const response = await fetch(`http://localhost:8000/api/getAllA`)
+    const response = await fetch(`http://localhost:8000/api/getAllQ`)
     const answer = await response.json()
     setQuestionsAndAnswers(answer)
   }
@@ -16,7 +17,7 @@ const Main = () => {
   return (
     <div>
     <div className='qDiv'>
-      {/* <SearchBar /> */}
+      <SearchBar />
     {questionsAndAnswers.map((q)=>
     <Question
     key={q._id}
