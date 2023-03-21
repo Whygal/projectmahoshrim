@@ -110,6 +110,8 @@ const AllTips = model("Tips", TipsSchema)
 
 //routes
 
+// questions
+
 app.post('/api/addOneQ', async(req, res)=> {
   try{
           const Question = req.body.q
@@ -321,12 +323,37 @@ app.post("/api/postTip", async(req,res)=>{
 app.get("/api/getTips", async(req,res)=>{
     try{
         const Tip = await AllTips.find({})
-        res.status(200).send(Tip)
-        
+        res.status(200).send(Tip)    
     }catch(e){
         res.status(500).send({message:e})
     }  
     })
+
+    app.put('/api/Tips/updateTip/:id', async (req,res) => {
+      const { id } = req.params
+      const updates = Object.keys(req.body);
+      const isValidOperation = updates.every((update) =>
+      allowedUpdate.includes(update)
+      );
+      
+      if (!isValidOperation) {
+          res.status(400).send({message: "Invalid updates"})
+      } else{
+      
+      try {
+          const updateTip = await Q.findOne({_id: id})
+        if (!updateTip) {
+          res.status(404).send({message: "Q does not exist"})
+        }
+        updates.forEach((update) => (updateTip[update] = req.body[update]));
+        await updateTip.save();
+        res.status(200).send(updateTip)
+      } catch (e) {
+          console.log(e)
+          res.status(500).send({message:e})
+           }
+          }
+          })
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,{
     useNewUrlParser: true,
