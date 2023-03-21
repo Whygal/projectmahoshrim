@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import "./style.css"
 import Question from '../Question/Question'
 import SearchBar from '../SearchBar/SearchBar'
+import LastQuestion from '../LastQuestion/LastQuestion'
 
 const Main = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([])
+  const [input, setInput] = useState('')
 
   const getQ = async () => {
     const response = await fetch(`http://localhost:8000/api/getAllQ`)
@@ -16,15 +18,8 @@ const Main = () => {
 
   return (
     <div>
-    <div className='qDiv'>
-      <SearchBar />
-    {questionsAndAnswers.map((q)=>
-    <Question
-    key={q._id}
-    q={q.q_id.q}
-    a={q.a}
-    />)}
-    </div>
+      <SearchBar input={input} setInput={setInput} />
+      <LastQuestion input={input} />
     </div>
   )
 }

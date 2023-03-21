@@ -31,6 +31,10 @@ const user = new mongoose.Schema({
         required:true,
         unique:true,
     },
+    isManager:{
+        type:Boolean,
+        default:false
+    },
     dateCreated:{
         type: Date,
         default: Date.now(),
@@ -42,37 +46,32 @@ const QuestionsSchema = new Schema({
       type: String,
       required: true,
     },
-  
     agreeToPublish:{
       type: Boolean,
       default: false,
     },
-  
     date:{
       type: Date,
       default: Date.now()
     },
-  
-  })
+})
   
   const AnswerSchema = new Schema({
     a:{
       type: String,
       required: true
     },
-  
     q_id:{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Q",
       required: true
     },
-    
     date:{
       type: Date,
       default: Date.now()
     }
-  
-  })
+})
+
 const Users = mongoose.model('Users', user);
 const Q = model('Q', QuestionsSchema);
 const A = model('A', AnswerSchema);
@@ -151,6 +150,17 @@ app.post('/api/addOneQ', async(req, res)=> {
           res.status(500).send({message:e})
       }
     })
+
+    app.get('/api/getQBySearch/:search', async(req,res)=> {
+      try{
+        const {search} = req.params
+        const qSearch = await Q.find({q: {$regex: `${search}`}})
+        console.log(qSearch);
+        res.status(200).send(qSearch)
+      }catch(e){
+        console.log(e)
+        res.status(500).send({message:e})
+    }})
    
     app.get('/api/getOneQ/:id', async(req, res)=> {
       try{
