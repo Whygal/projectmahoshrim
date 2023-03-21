@@ -338,12 +338,11 @@ app.get("/api/getTips", async(req,res)=>{
       
       if (!isValidOperation) {
           res.status(400).send({message: "Invalid updates"})
-      } else{
-      
+      } else{  
       try {
-          const updateTip = await Q.findOne({_id: id})
+          const updateTip = await AllTips.findOne({_id: id})
         if (!updateTip) {
-          res.status(404).send({message: "Q does not exist"})
+          res.status(404).send({message: "does not exist"})
         }
         updates.forEach((update) => (updateTip[update] = req.body[update]));
         await updateTip.save();
@@ -353,6 +352,20 @@ app.get("/api/getTips", async(req,res)=>{
           res.status(500).send({message:e})
            }
           }
+          })
+
+          app.delete('/api/delete/deleteOneTip/:id', async (req,res) => {
+            try{
+                const { id } = req.params
+                const deletedTips = await AllTips.findOneAndDelete({id: id})
+                if(!deletedTips){
+                    res.status(404).send({message:"no such todo with the specified id"})
+                }
+                res.status(200).send(deletedTips)
+            } catch(e){
+                console.log(e)
+                res.status(500).send({message:e})
+            }
           })
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,{
