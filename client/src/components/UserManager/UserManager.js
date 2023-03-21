@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+// import Axios from 'axios'
 
 const UserManager = () => {
+
   return (
-    <div>UserManager</div>
+    <div></div>
   )
 }
 

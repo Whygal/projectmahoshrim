@@ -368,6 +368,7 @@ app.get("/api/getTips", async(req,res)=>{
             }
           })
 
+
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
