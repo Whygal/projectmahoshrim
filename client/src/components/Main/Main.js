@@ -8,18 +8,9 @@ const Main = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([])
   const [input, setInput] = useState('')
 
-  const getQ = async () => {
-    const response = await fetch(`http://localhost:8000/api/getAllQ`)
-    const answer = await response.json()
-    setQuestionsAndAnswers(answer)
-  }
-
-  useEffect(()=>{getQ()})
-
   return (
     <div>
       <SearchBar input={input} setInput={setInput} />
-      <LastQuestion input={input} />
     </div>
   )
 }

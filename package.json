@@ -19,7 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "start_server": "nodemon server.js",
-    "dev": "concurrently \"nodemon index.js\" \"cd client && npm start\""
+    "dev": "concurrently \"nodemon index.js\" \"cd client && npm start\"",
+    "git": "git add . && git commit -m\"concurrently\" && git push"
   },
   "keywords": [],
   "author": "",

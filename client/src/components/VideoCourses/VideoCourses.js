@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "./style.css";
+import "./VideoCourses.css";
 import YoutubeEmbed from "./YoutubeEmbed";
 import {key} from "../../key/key"
 import Tn from "./Tn";

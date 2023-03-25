@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import LastQuestion from '../LastQuestion/LastQuestion'
 const SearchBar = ({input, setInput}) => {
 
     const [data, setData] = useState([])
@@ -25,7 +25,7 @@ const SearchBar = ({input, setInput}) => {
     // }
 
         const questions = qSearch.map(prop=> <div key={prop.id}><p>{prop.q}</p></div>)
-        const content = qSearch.length ? questions : <div><h4>לא נמצאו נתונים</h4><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
+        const content = qSearch.length ? questions : <div><LastQuestion/><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
   return (
     <div className='search' onSubmit={handleSumbit}>
         <input type='text' className='search-input' placeholder='..חפש שאלה' onChange={(e)=> setInput(e.target.value)}></input>

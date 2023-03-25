@@ -6,8 +6,8 @@ const Question = ({q,a}) => {
     
   return (
     <div>
-       <div className='Q' onClick={() => setAns(a)}>{q}</div>
-        <div>{ans}</div>
+       <div className='Q' onClick={() => ans !== [] ? setAns(a) : setAns([])}>{q}</div>
+        {ans.length ? <div>{ans}</div> : <div></div>}
     </div>
   )
 }

@@ -9,8 +9,9 @@ import bcrypt from 'bcrypt'
 import cookieParser from 'cookie-parser'
 import { async } from "rxjs";
 
+
 config();
-const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env
+const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, KEY } = process.env
 const app = express()
 
 app.use(json())
@@ -73,9 +74,41 @@ const QuestionsSchema = new Schema({
     }
 })
 
+const TipsSchema = new Schema({
+  tip:{
+    type: String,
+    required: true
+  },
+  date:{
+    type: Date,
+    default: Date.now()
+  }
+})
+
+const YtSchema = new Schema({
+  videoId:{
+    type: String,
+    required: true
+  },
+  Tn:{
+    type: Object, 
+    required: true
+  },
+  title:{
+    type: String, 
+    required:true
+  },
+  date:{
+    type: Date,
+    default: Date.now()
+  }
+})
+
 const Users = mongoose.model('Users', user);
 const Q = model('Q', QuestionsSchema);
 const A = model('A', AnswerSchema);
+const Tips = model("Tips", TipsSchema)
+const Yt = model("Yt", YtSchema)
 
 app.post('/Register', (req,res)=> {
     const username = req.body.username
@@ -319,6 +352,73 @@ app.post('/api/addOneQ', async(req, res)=> {
          }
         }
         })
+
+        //tips
+
+        app.post('/api/postTip', async(req, res)=> {
+          try{
+            const tip = req.body.tip
+                  const NewTip = new Tips({
+                    tip:tip
+                  })
+                  await NewTip.save()
+                  res.status(200).send(NewTip)
+          }catch(e){
+              console.log(e)
+              res.status(500).send({message:e})
+          }
+        })
+        
+        app.get('/api/getTips', async(req, res)=> {
+            try{
+                    const allTips = await Tips.find({})
+                    res.status(200).send(allTips)
+            }catch(e){
+                console.log(e)
+                res.status(500).send({message:e})
+            }
+          })
+
+          app.delete('/api/delete/deleteOneTip/:id', async (req,res) => {
+            try{
+                const { id } = req.params
+                const deletedTip = await Tips.findOneAndDelete({id: id})
+                if(!deletedTip){
+                    res.status(404).send({message:"no such todo with the specified id"})
+                }
+                res.status(200).send(deletedTip)
+            } catch(e){
+                console.log(e)
+                res.status(500).send({message:e})
+          
+            }
+          })
+
+
+// yt!
+
+      // app.post('/api/postYt', async(req, res)=> {
+      //   try{
+      //     const yt = await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${KEY}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`)
+      //     const data = await yt.json()
+      //     const items = data.items  
+      //     const videoId = items.map((v)=> v.id.videoId) 
+      //     const Tn =  items.map((v)=> v.thumbnails)
+      //     const title = items.map((v)= v.title)
+
+      //     const NewYt = Yt.insertMany({
+      //             videoId: videoId,
+      //             Tn:Tn,
+      //             title:title
+      //           })
+
+      //           await NewYt.save()
+      //           res.status(200).send(NewYt)
+      //   }catch(e){
+      //       console.log(e)
+      //       res.status(500).send({message:e})
+      //   }
+      // })
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
