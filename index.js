@@ -7,6 +7,7 @@ import { allowedUpdate } from "./allowedUpdate.js";
 import { createToken, validateToken } from './JWT.cjs'
 import bcrypt from 'bcrypt'
 import cookieParser from 'cookie-parser'
+import { async } from "rxjs";
 
 config();
 const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env
@@ -81,7 +82,6 @@ app.post('/Register', (req,res)=> {
     const password = req.body.password
     const email = req.body.email
     bcrypt.hash(password, 10).then((hash)=>{
-        // const Users = new Users({username: username, password: hash, email:email}) 
         Users.create({
             username: username,
             password: hash,
@@ -99,11 +99,10 @@ app.post('/Register', (req,res)=> {
 })
 
 app.post('/Login', async(req,res)=> {
-   
     const {username, password} = req.body;
     const userLogged = await Users.findOne({username});
     if(!userLogged)
-    res.status(400).json({error: "User Dosen't Exist"});
+    res.status(400).json({error: "User Doesn't Exist"});
     const dbPassword = userLogged.password;
     bcrypt.compare(password, dbPassword).then((match)=> {
         if(!match){
@@ -124,6 +123,18 @@ res.render("/Login");
 app.get("/profile", validateToken, (req,res)=> {
 res.json("you are authenticated")
 })
+
+app.get('/api/getAllUsers', async(req, res)=> {
+  try{
+          const users = await Users.find({})
+          res.status(200).send(users)
+  }catch(e){
+      console.log(e)
+      res.status(500).send({message:e})
+  }
+})
+
+ //Q
 
 app.post('/api/addOneQ', async(req, res)=> {
     try{
@@ -282,6 +293,32 @@ app.post('/api/addOneQ', async(req, res)=> {
   
     }
   })
+
+  app.put('/api/A/updateA/:id', async (req,res) => {
+    const { id } = req.params
+    const updates = Object.keys(req.body);
+    const isValidOperation = updates.every((update) =>
+    allowedUpdate.includes(update)
+    );
+    
+    if (!isValidOperation) {
+        res.status(400).send({message: "Invalid updates"})
+    } else{
+    
+    try {
+        const updateA = await A.findOne({_id: id})
+      if (!updateA) {
+        res.status(404).send({message: "A does not exist"})
+      }
+      updates.forEach((update) => (updateA[update] = req.body[update]));
+      await updateA.save();
+      res.status(200).send(updateA)
+    } catch (e) {
+        console.log(e)
+        res.status(500).send({message:e})
+         }
+        }
+        })
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,

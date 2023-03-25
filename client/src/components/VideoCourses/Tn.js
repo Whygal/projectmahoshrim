@@ -2,7 +2,7 @@ import React from 'react'
 
 const Tn = ({thumbnails, title}) => {
   return (
-    <div><img src={thumbnails} alt=""/><div>{title}</div></div>
+    <div><image src={thumbnails} alt=""/><div>{title}</div></div>
   )
 }
 
