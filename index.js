@@ -6,8 +6,6 @@ import mongoose from "mongoose";
 import { allowedUpdate } from "./allowedUpdate.js";
 import { createToken, validateToken } from './JWT.cjs'
 import bcrypt from 'bcrypt'
-import cookieParser from 'cookie-parser'
-import { async } from "rxjs";
 
 
 config();
@@ -88,9 +86,9 @@ const TipsSchema = new Schema({
 const YtSchema = new Schema({
   videoId:{
     type: String,
-    required: true
+    required:true
   },
-  Tn:{
+  tn:{
     type: Object, 
     required: true
   },
@@ -394,31 +392,6 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           })
 
-
-// yt!
-
-      // app.post('/api/postYt', async(req, res)=> {
-      //   try{
-      //     const yt = await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${KEY}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`)
-      //     const data = await yt.json()
-      //     const items = data.items  
-      //     const videoId = items.map((v)=> v.id.videoId) 
-      //     const Tn =  items.map((v)=> v.thumbnails)
-      //     const title = items.map((v)= v.title)
-
-      //     const NewYt = Yt.insertMany({
-      //             videoId: videoId,
-      //             Tn:Tn,
-      //             title:title
-      //           })
-
-      //           await NewYt.save()
-      //           res.status(200).send(NewYt)
-      //   }catch(e){
-      //       console.log(e)
-      //       res.status(500).send({message:e})
-      //   }
-      // })
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,

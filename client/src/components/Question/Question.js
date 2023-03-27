@@ -3,11 +3,22 @@ import "./style.css"
 
 const Question = ({q,a}) => {
     const [ans, setAns] = useState([])
-    
+    const [open, setOpen] = useState(false)
+
+  const handleAChange = () =>{
+    setOpen(!open)
+    if(open){
+      setAns(a)
+    }else{
+      setAns([])
+    }
+  }
+
   return (
     <div>
-       <div className='Q' onClick={() => ans !== [] ? setAns(a) : setAns([])}>{q}</div>
-        {ans.length ? <div>{ans}</div> : <div></div>}
+      <div onClick={() => handleAChange()}>
+       <div className='Q'>{q}</div>
+       {ans}</div>
     </div>
   )
 }
