@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Title from "./Title";
-const YoutubeEmbed = ({ embedId,title }) => (
-  <div className="video-responsive">
+const YoutubeEmbed = ({ embedId, thumbnails ,title }) => (
+  <div className="tn">
     <iframe
       width="853"
       height="480"

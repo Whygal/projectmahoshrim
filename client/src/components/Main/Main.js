@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./style.css"
-import Question from '../Question/Question'
 import SearchBar from '../SearchBar/SearchBar'
-import LastQuestion from '../LastQuestion/LastQuestion'
 
 const Main = () => {
-  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([])
   const [input, setInput] = useState('')
+  const [data, setData] = useState([])
 
-  const getQ = async () => {
-    const response = await fetch(`http://localhost:8000/api/getAllQ`)
-    const answer = await response.json()
-    setQuestionsAndAnswers(answer)
-  }
+    const qsData = async ()=> {
+        const response = await fetch('http://localhost:8000/api/getAllA')
+        const answer = await response.json()
+        setData(answer)
+    }
 
-  useEffect(()=>{getQ()})
-
+    useEffect(()=>{qsData()})
   return (
     <div>
-      <SearchBar input={input} setInput={setInput} />
-      <LastQuestion input={input} />
+      <SearchBar input={input} setInput={setInput} data={data} />
     </div>
   )
 }

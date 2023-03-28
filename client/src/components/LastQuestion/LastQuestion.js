@@ -1,10 +1,12 @@
+
+import React from 'react'
+import Question from '../Question/Question'
+
+const LastQuestion = ({input, data}) => {
 import React, {useState, useEffect} from 'react'
 import SearchBar from '../SearchBar/SearchBar'
 
 const LastQuestion = ({input}) => {
-
-const [data, setData] = useState([])
-
 
     const qsData = async ()=> {
         const response = await fetch('http://localhost:8000/api/getAllQ')
@@ -24,7 +26,14 @@ console.log(dataSort());
         const lastQuestions = data.map(prop=> <div key={prop.id}>{prop.q}</div>).sort((a,b)=> {return a-b})
   return (
     <div>
-        {input.length ? <div></div> : <div><h4>:שאלות אחרונות</h4><div>{lastQuestions}</div></div>}
+        {data.map((q)=> 
+        <Question
+        key={q._id}
+        q={q.q_id.q}
+        a={q.a}
+        />
+        ).sort((a,b)=> {return a-b})
+        }
     </div>
   )
 }

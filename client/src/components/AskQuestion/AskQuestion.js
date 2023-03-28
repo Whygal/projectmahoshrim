@@ -7,10 +7,11 @@ const AskQuestion = () => {
   const [agreeToPublish, setAgreeToPublish] = useState(false)
   const [questionAsked, setQuestionAsked] = useState("")
   const [qStatus, setQStatus] = useState('')
+  
 
-  const askQ = () => {
-    Axios.post(`${BASE_URL}/api/addOneQ`, 
-      {q:questionAsked , agreeToPublish:agreeToPublish})
+  const askQ = async () => {
+    Axios.post(`http://localhost:8000/api/addOneQ`, 
+      {q:questionAsked , AgreeToPublish:agreeToPublish})
       .then((response)=>{
         if(response.data.message){
           setQStatus(response.data.message)
@@ -22,7 +23,7 @@ const AskQuestion = () => {
       console.log(agreeToPublish);
   }
 
-  // useEffect(()=>{askQ()})
+  useEffect(()=>{askQ()})
 
   return (
     <div>
