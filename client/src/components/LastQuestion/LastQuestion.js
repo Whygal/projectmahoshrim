@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import SearchBar from '../SearchBar/SearchBar'
 
 const LastQuestion = ({input}) => {
@@ -12,17 +12,19 @@ const [data, setData] = useState([])
         setData(answer)
     }
 
-
-
-    const dinamicQuestion = ()=> {
-        data.date.sort((a,b)=> {
-            return a-b  
-        } )
+    const dataSort = ()=> {
+      data.forEach(item=> item.date.sort((a,b)=>{return a-b}))
     }
+console.log(dataSort());
 
+    useEffect(()=>{
+        qsData();
+        }, [])
+
+        const lastQuestions = data.map(prop=> <div key={prop.id}>{prop.q}</div>).sort((a,b)=> {return a-b})
   return (
     <div>
-        {input.length ? <div></div> : <div><h4>:שאלות אחרונות</h4><div>{dinamicQuestion}</div></div>}
+        {input.length ? <div></div> : <div><h4>:שאלות אחרונות</h4><div>{lastQuestions}</div></div>}
     </div>
   )
 }
