@@ -54,6 +54,10 @@ const QuestionsSchema = new Schema({
       type: Date,
       default: Date.now()
     },
+    username:{
+      type:String,
+      requierd: true
+    },
 })
   
   const AnswerSchema = new Schema({
@@ -171,9 +175,11 @@ app.post('/api/addOneQ', async(req, res)=> {
     try{
             const Question = req.body.q
             const Checkbox = req.body.agreeToPublish
+            const Username = req.body.username
             const NewQ = new Q({
               q:Question,
-              agreeToPublish: Checkbox
+              agreeToPublish: Checkbox,
+              username: Username
             })
             await NewQ.save()
             res.status(200).send(NewQ)

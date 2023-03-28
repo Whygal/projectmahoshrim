@@ -1,5 +1,6 @@
 import { FormControlLabel, Checkbox, Button } from '@mui/material'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
+import MyContext from '../../Context'
 import Axios from "axios"
 import { BASE_URL } from '../../Constants/Const'
 
@@ -7,11 +8,13 @@ const AskQuestion = () => {
   const [agreeToPublish, setAgreeToPublish] = useState(false)
   const [questionAsked, setQuestionAsked] = useState("")
   const [qStatus, setQStatus] = useState('')
-  
+  const dataFromContext = useContext(MyContext)
+  console.log(dataFromContext.username)
+
 
   const askQ = async () => {
     Axios.post(`http://localhost:8000/api/addOneQ`, 
-      {q:questionAsked , AgreeToPublish:agreeToPublish})
+      {q:questionAsked , AgreeToPublish:agreeToPublish, username:dataFromContext.username})
       .then((response)=>{
         if(response.data.message){
           setQStatus(response.data.message)
@@ -21,9 +24,8 @@ const AskQuestion = () => {
         }
       })
       console.log(agreeToPublish);
+      console.log(qStatus);
   }
-
-  useEffect(()=>{askQ()})
 
   return (
     <div>
