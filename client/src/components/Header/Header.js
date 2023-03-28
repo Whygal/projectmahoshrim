@@ -2,18 +2,18 @@ import React from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
 import logo from "../../images/LOGO.jpg"
-const login = require('../../images/LOGIN.png')
-const main = require('../Main/Main')
+import login from '../../images/LOGIN.png'
+
 
 const Header = () => {
   return (
     <nav className='header'>
         <div >
-            <Link to='/Login'><img className='login-register' style={{borderRadius:'50%'}} src={login}></img></Link>
+            <Link to='/Login'><img className='login-register' style={{borderRadius:'50%'}} src={login} alt=""></img></Link>
         </div>
 
         <div className='divLogoImg' >
-            <Link to='/Main'><img className='logoImg' src={logo}></img></Link>
+            <Link to='/Main'><img className='logoImg' src={logo} alt=""></img></Link>
         </div>
 
         <div className='pages'>
