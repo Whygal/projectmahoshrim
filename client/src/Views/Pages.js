@@ -1,6 +1,7 @@
 import React from 'react'
 import {Route, Routes} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
+import LastQuestion from "../components/LastQuestion/LastQuestion"
 import "./style.css"
 import Main from "../components/Main/Main"
 import VideoCourses from "../components/VideoCourses/VideoCourses"
@@ -32,6 +33,7 @@ const Pages = () => {
                                     {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/AskQuestion" element={<AskQuestion/>}/>
+                                    <Route path="/LastQuestion" element={<LastQuestion/>}/>
                                     {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>

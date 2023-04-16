@@ -13,8 +13,8 @@ const AskQuestion = () => {
 
 
   const askQ = async () => {
-    Axios.post(`http://localhost:8000/api/addOneQ`, 
-      {q:questionAsked , AgreeToPublish:agreeToPublish, username:dataFromContext.username})
+    Axios.post(`${BASE_URL}/api/addOneQ`, 
+      {q:questionAsked , agreeToPublish:agreeToPublish, username:dataFromContext.username})
       .then((response)=>{
         if(response.data.message){
           setQStatus(response.data.message)
@@ -27,15 +27,19 @@ const AskQuestion = () => {
       console.log(qStatus);
   }
 
+  const agree = ()=> {
+    setAgreeToPublish(!agreeToPublish)
+  }
+
   return (
     <div>
      <label>מה השאלה?</label>
      <input type="text" name='name' onChange={(e)=>{setQuestionAsked(e.target.value)}}/>
-     <FormControlLabel control={<Checkbox onClick={(e)=> {e.target.Checked ? setAgreeToPublish(true) : setAgreeToPublish(false)}}/>} label="האם אתה מסכים לפרסם את השאלה?" ></FormControlLabel>
+     <FormControlLabel control={<Checkbox onClick={()=> agree()}/>} label="האם אתה מסכים לפרסם את השאלה?" ></FormControlLabel>
      <Button onClick={askQ}>שלח שאלה</Button>
      <p>{qStatus}</p>
     </div>
   )
-}
+  }
 
 export default AskQuestion

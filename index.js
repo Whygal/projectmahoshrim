@@ -48,7 +48,7 @@ const QuestionsSchema = new Schema({
     },
     agreeToPublish:{
       type: Boolean,
-      default: false,
+      // default: false,
     },
     date:{
       type: Date,
@@ -204,7 +204,8 @@ app.post('/api/addOneQ', async(req, res)=> {
         const {search} = req.params
         const qSearch = await Q.find({q: {$regex: `${search}`}})
         console.log(qSearch);
-        res.status(200).send(qSearch)
+        const answer = qSearch.length ? res.status(200).send(qSearch) : res.status(400).json(["לא נמצאה שאלה"])
+        // res.status(200).send(qSearch)
       }catch(e){
         console.log(e)
         res.status(500).send({message:e})
