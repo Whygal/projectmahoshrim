@@ -9,7 +9,7 @@ const AskQuestion = () => {
   const [questionAsked, setQuestionAsked] = useState("")
   const [qStatus, setQStatus] = useState('')
   const dataFromContext = useContext(MyContext)
-  console.log(dataFromContext.username)
+  // console.log(dataFromContext.username)
 
 
   const askQ = async () => {
