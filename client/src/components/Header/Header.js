@@ -1,11 +1,18 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
 import logo from "../../images/LOGO.jpg"
 import login from '../../images/LOGIN.png'
+import MyContext from '../../Context'
+
 
 
 const Header = () => {
+
+  const dataFromContext = useContext(MyContext) 
+
+
+
   return (
     <nav className='header'>
         <div >
@@ -15,7 +22,7 @@ const Header = () => {
         <div className='divLogoImg' >
             <Link to='/Main'><img className='logoImg' src={logo} alt=""></img></Link>
         </div>
-
+       <div>{"שלום "+dataFromContext.username}</div>
         <div className='pages'>
             <Link to='/Main' className='line'><li>דף ראשי</li></Link>
             /

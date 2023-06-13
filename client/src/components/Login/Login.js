@@ -11,7 +11,7 @@ const Login = () => {
     const [loginStatus, setLoginStatus] = useState('')
 
     const dataFromContext = useContext(MyContext) 
-    dataFromContext.setUsername("israel")
+    // dataFromContext.setUsername()
     
     const login = ()=> {
       Axios.post(`${BASE_URL}/Login`, 
@@ -22,7 +22,7 @@ const Login = () => {
         }else{
           console.log(response.data)
           setLoginStatus('ברוך הבא '+response.data.username)
-          // dataFromContext.setUsername(response.data.username) 
+          dataFromContext.setUsername(response.data.username) 
           window.location.href = "http://localhost:3000/Main"; 
         }
       }
@@ -36,6 +36,9 @@ const Login = () => {
         <button onClick={login}>כניסה</button>
         <br></br>
         <Link to='/Register'>עוד אין לך חשבון?</Link>
+        <br></br>
+        <Link to='/EmailJs'>שכחת סיסמא?</Link>
+
         <h1>{loginStatus}</h1>
     </div>
   )

@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import MyContext from '../../Context'
 
-const LastQuestion = ({data}) => {
+const LastQuestion = () => {
 
   const [allQ, setAllQ] = useState([])
   const [num, setNum] = useState(-5)
+
+  
 
   const getAllQ = async ()=> {
     const response = await fetch("http://localhost:8000/api/getAllQ")
@@ -11,9 +14,6 @@ const LastQuestion = ({data}) => {
     setAllQ(answer)
   }
 
-  // const newArr = allQ.slice(-5).reverse()
-  // setCutNumber(newArr)
-  // console.log(newArr);
 
   const moreFive = ()=> {
    setNum(num -5)

@@ -399,6 +399,26 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           })
 
+          app.post('/ChangePass/:email', async (req,res)=> {
+            try{
+              const {email} = req.params
+              const changePass = await Users.findOne({email})
+              if(!changePass){
+                res.status(404).send({message: "no such user with this email address"})
+              }
+              res.status(200).send({email:changePass.email})
+            }catch(e){
+              console.log(e)
+              res.status(500).send({message:e})
+
+            }
+          }
+          )
+          // res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
+   
+
+          
+
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,

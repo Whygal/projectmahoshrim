@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+import MyContext from '../Context'
 import {Route, Routes} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
 import LastQuestion from "../components/LastQuestion/LastQuestion"
@@ -17,12 +18,17 @@ import AnswerQuestion from '../components/AnswerQuestion/AnswerQuestion'
 import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
-
+import ChangePass from '../components/ChangePass/ChangePass'
+import {EmailJs} from '../components/EmailJs/EmailJs'
 
 
 const Pages = () => {
 
+  const [username, setUsername] = useState("")
+
+
   return (
+          <MyContext.Provider value={{username, setUsername}}>
             <div className='views'>
             <div className='page'>
             <Header/>
@@ -34,9 +40,11 @@ const Pages = () => {
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/AskQuestion" element={<AskQuestion/>}/>
                                     <Route path="/LastQuestion" element={<LastQuestion/>}/>
+                                    <Route path="/ChangePass" element={<ChangePass/>}/>
                                     {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
+                                    <Route path="/EmailJs" element={<EmailJs/>}/>
                                     <Route path="/About" element={<About/>}/>
                                     <Route path="*" element={<NotFound/>}/>
                                     <Route path="/Main" element={<Main/>}/>
@@ -49,7 +57,7 @@ const Pages = () => {
                   <Footer />
                   </div>
                   </div>  
-
+          </MyContext.Provider>
   )
 }
 

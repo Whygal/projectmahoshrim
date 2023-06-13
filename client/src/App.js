@@ -10,11 +10,11 @@ function App() {
 
 
   return (
-    <MyContext.Provider value={{username, setUsername}}>
+    // <MyContext.Provider value={{username, setUsername}}>
       <div>
         <Pages />
       </div>
-    </MyContext.Provider>
+    // </MyContext.Provider>
    
   );
 }
