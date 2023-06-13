@@ -1,7 +1,9 @@
+
 import React, { useContext, useEffect, useState } from 'react'
 import MyContext from '../../Context'
 
 const LastQuestion = () => {
+
 
   const [allQ, setAllQ] = useState([])
   const [num, setNum] = useState(-5)
@@ -22,6 +24,7 @@ const LastQuestion = () => {
   useEffect(()=>{getAllQ()}, [])
 
   return (
+
     <div className='LastQuestion'>
         {allQ.slice(num).reverse().map((item)=> 
         <div>{item.q}</div>
