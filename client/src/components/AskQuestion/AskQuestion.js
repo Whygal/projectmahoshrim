@@ -31,10 +31,6 @@ const AskQuestion = () => {
     setAgreeToPublish(!agreeToPublish)
   }
 
-  const agree = () => {
-    setAgreeToPublish(!agreeToPublish)
-  }
-
   return (
     <div>
      <label>מה השאלה?</label>
