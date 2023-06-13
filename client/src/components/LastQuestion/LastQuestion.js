@@ -2,7 +2,7 @@ import React from 'react'
 import Question from '../Question/Question'
 
 const LastQuestion = ({data}) => {
-  
+
   return (
     <div>
         {data.map((q)=> 
