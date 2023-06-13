@@ -8,6 +8,8 @@
     background-color: #0ab1a0;
     height: 200px;
     width: 100vw;
+    position: sticky;
+    top: 0;
 }
 
 .login-register{
@@ -27,13 +29,6 @@
     text-align: center;
     width: 170px;
     border-radius: 50%;
-}
-
-.pages{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    width: 40%;
 }
 
 .line{

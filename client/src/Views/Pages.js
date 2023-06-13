@@ -20,6 +20,7 @@ import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
 import ChangePass from '../components/ChangePass/ChangePass'
 import {EmailJs} from '../components/EmailJs/EmailJs'
+import "./style.css"
 
 
 const Pages = () => {

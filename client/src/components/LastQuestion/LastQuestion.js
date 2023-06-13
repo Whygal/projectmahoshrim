@@ -28,8 +28,9 @@ const LastQuestion = ({data}) => {
         key={q._id}
         q={q.q_id.q}
         a={q.a}
+        q_id={q._id}
         />
-        ).sort((a,b)=> {return a-b})
+        )
         }
     </div>
   )
