@@ -33,6 +33,6 @@ const LastQuestion = ({data}) => {
         }
     </div>
   )
-      }
+      }}
 
 export default LastQuestion
