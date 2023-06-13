@@ -1,7 +1,6 @@
 import React from 'react'
 import {Route, Routes} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
-import "./style.css"
 import Main from "../components/Main/Main"
 import VideoCourses from "../components/VideoCourses/VideoCourses"
 import Tips from "../components/Tips/Tips"
@@ -16,7 +15,7 @@ import AnswerQuestion from '../components/AnswerQuestion/AnswerQuestion'
 import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
-
+import "./style.css"
 
 
 const Pages = () => {
@@ -32,7 +31,7 @@ const Pages = () => {
                                     <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/AskQuestion" element={<AskQuestion/>}/>
-                                    {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
+                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
                                     <Route path="/About" element={<About/>}/>

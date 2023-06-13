@@ -1,6 +1,14 @@
+.views{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .pages{
     display: flex;
     align-items: center;
-    min-height: 100%;
-    /* min-width: 100%; */
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    min-height: 18.8em;
 }

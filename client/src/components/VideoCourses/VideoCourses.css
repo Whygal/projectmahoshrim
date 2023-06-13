@@ -1,0 +1,13 @@
+.allTheVideos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.videos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.title{
+    text-align: center;
+}
