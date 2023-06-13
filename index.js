@@ -48,11 +48,15 @@ const QuestionsSchema = new Schema({
     },
     agreeToPublish:{
       type: Boolean,
-      default: false,
+      // default: false,
     },
     date:{
       type: Date,
       default: Date.now()
+    },
+    username:{
+      type:String,
+      requierd: true
     },
 })
   
@@ -171,9 +175,11 @@ app.post('/api/addOneQ', async(req, res)=> {
     try{
             const Question = req.body.q
             const Checkbox = req.body.agreeToPublish
+            const Username = req.body.username
             const NewQ = new Q({
               q:Question,
-              agreeToPublish: Checkbox
+              agreeToPublish: Checkbox,
+              username: Username
             })
             await NewQ.save()
             res.status(200).send(NewQ)
@@ -198,7 +204,8 @@ app.post('/api/addOneQ', async(req, res)=> {
         const {search} = req.params
         const qSearch = await Q.find({q: {$regex: `${search}`}})
         console.log(qSearch);
-        res.status(200).send(qSearch)
+        const answer = qSearch.length ? res.status(200).send(qSearch) : res.status(400).json(["לא נמצאה שאלה"])
+        // res.status(200).send(qSearch)
       }catch(e){
         console.log(e)
         res.status(500).send({message:e})
@@ -391,6 +398,26 @@ app.post('/api/addOneQ', async(req, res)=> {
           
             }
           })
+
+          app.post('/ChangePass/:email', async (req,res)=> {
+            try{
+              const {email} = req.params
+              const changePass = await Users.findOne({email})
+              if(!changePass){
+                res.status(404).send({message: "no such user with this email address"})
+              }
+              res.status(200).send({email:changePass.email})
+            }catch(e){
+              console.log(e)
+              res.status(500).send({message:e})
+
+            }
+          }
+          )
+          // res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
+   
+
+          
 
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
