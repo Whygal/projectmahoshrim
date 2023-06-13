@@ -1,5 +1,6 @@
 import { FormControlLabel, Checkbox, Button } from '@mui/material'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
+import MyContext from '../../Context'
 import Axios from "axios"
 
 
@@ -7,11 +8,13 @@ const AskQuestion = () => {
   const [agreeToPublish, setAgreeToPublish] = useState(false)
   const [questionAsked, setQuestionAsked] = useState("")
   const [qStatus, setQStatus] = useState('')
-  
+  const dataFromContext = useContext(MyContext)
+  // console.log(dataFromContext.username)
+
 
   const askQ = async () => {
-    Axios.post(`http://localhost:8000/api/addOneQ`, 
-      {q:questionAsked , agreeToPublish:agreeToPublish})
+    Axios.post(`${BASE_URL}/api/addOneQ`, 
+      {q:questionAsked , agreeToPublish:agreeToPublish, username:dataFromContext.username})
       .then((response)=>{
         if(response.data.message){
           setQStatus(response.data.message)
@@ -21,9 +24,12 @@ const AskQuestion = () => {
         }
       })
       console.log(agreeToPublish);
+      console.log(qStatus);
   }
 
-  useEffect(()=>{askQ()})
+  const agree = ()=> {
+    setAgreeToPublish(!agreeToPublish)
+  }
 
   const agree = () => {
     setAgreeToPublish(!agreeToPublish)
@@ -33,11 +39,11 @@ const AskQuestion = () => {
     <div>
      <label>מה השאלה?</label>
      <input type="text" name='name' onChange={(e)=>{setQuestionAsked(e.target.value)}}/>
-     <FormControlLabel control={<Checkbox onClick={()=>agree()}/>} label="האם אתה מסכים לפרסם את השאלה?" ></FormControlLabel>
+     <FormControlLabel control={<Checkbox onClick={()=> agree()}/>} label="האם אתה מסכים לפרסם את השאלה?" ></FormControlLabel>
      <Button onClick={askQ}>שלח שאלה</Button>
      <p>{qStatus}</p>
     </div>
   )
-}
+  }
 
 export default AskQuestion

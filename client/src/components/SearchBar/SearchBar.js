@@ -10,12 +10,22 @@ const SearchBar = ({input, setInput, data}) => {
     const getQSearch = async ()=> {
       const response = await fetch(`http://localhost:8000/api/getQBySearch/${input}`)
       const answer = await response.json()
+      // console.log(answer);
       setQSearch(answer)
   }
-
+// getQSearch()
+// console.log(qSearch);
    const handleSubmit = (e)=> e.preventDefault()
+  //  const ifThereIsAQ = ()=> {
+  //   if(qSearch[0] === "לא נמצאה שאלה"){
+  //     <Question key="1" answer={qSearch[0]}/>
+  //    }else{
+  //     qSearch.map((prop)=> <Question key={prop._id} q={prop.q} a={prop}></Question>)
+  //    }
+  //  }
+   
   
-        const questions = qSearch.map((prop)=> <Question key={prop._id} q={prop.q} a={prop}></Question>)
+        const questions = qSearch[0] !== "לא נמצאה שאלה" ? qSearch.map((prop)=> <Question key={prop._id} q={prop.q} a={prop}></Question>): <div>לא נמצאה שאלה<br></br><Link to={'/AskQuestion'}>שליחת שאלה הקש כאן</Link></div>
         const content = qSearch.length ? questions : <div><LastQuestion data={data}/><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
   return (
     <div className='search' onSubmit={handleSubmit}>
