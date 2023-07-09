@@ -1,5 +1,5 @@
-import React from 'react'
-import {Route, Routes} from "react-router-dom"
+import React, { useContext, useState } from 'react'
+import {Route, Routes, Outlet} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
 import Main from "../components/Main/Main"
 import VideoCourses from "../components/VideoCourses/VideoCourses"
@@ -16,22 +16,36 @@ import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
 import "./style.css"
+import MyContext from '../Context'
 
 
 const Pages = () => {
+  
+const [usernameLog, setUsernameLog] = useState("")
+const [name, setName] = useState("")
+const [userId, setUserId] = useState("")
 
   return (
             <div className='views'>
             <div className='page'>
+            <MyContext.Provider value={{name}}>
             <Header/>
+            </MyContext.Provider>
                           <div className='pages'>
                             <Routes>
-                                    <Route path="/Login" element={<Login/>}/>
+                                    <Route path="/Login" element={
+                                    <MyContext.Provider value={{usernameLog, setUsernameLog, setName, setUserId}}>
+                                    <Login/>
+                                    </MyContext.Provider>
+                                    }/>
                                     <Route path="/Register" element={<Register/>}/>
                                     <Route path="/VideoCourses" element={<VideoCourses/>}/>
                                     <Route path="/" element={<Main/>}/>
-                                    <Route path="/AskQuestion" element={<AskQuestion/>}/>
-                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
+                                    <Route path="/AskQuestion" element={
+                                    <MyContext.Provider value={{userId}}>
+                                    <AskQuestion/>
+                                    </MyContext.Provider>
+                                    }/>
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
                                     <Route path="/About" element={<About/>}/>
@@ -46,8 +60,8 @@ const Pages = () => {
                   <Footer />
                   </div>
                   </div>  
-
   )
 }
+
 
 export default Pages;

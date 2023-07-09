@@ -4,17 +4,18 @@ import "./VideoCourses.css";
 import YoutubeEmbed from "./YoutubeEmbed";
 import Title from "./Title";
 import {Button} from "@mui/material"
+import { ApiKey } from "../../Constants/Const";
 
 const VideoCourses = () => {
 const [videos, setVideo] = useState({})
 const [open, setOpen] = useState(false)
+
 const updateVideos = async () => {
   try{
-const resKey = await axios.get("http://localhost:8000/api/getYtKey")
-.then((ans)=> ans.data.apiKey)
-const res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${resKey}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`)
+const res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${ApiKey}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`)
 const ans = await res.json()
 setVideo(ans)
+console.log(ans);
 setOpen(!open)
 }catch(e){
   console.log(e)

@@ -17,7 +17,8 @@ const SearchBar = ({input, setInput, data}) => {
   
         const questions = qSearch.map((prop)=> <Question key={prop._id} q={prop.q} a={prop}></Question>)
         const content = qSearch.length ? questions : <div><LastQuestion data={data}/><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
-  return (
+        
+        return (
     <div className='search' onSubmit={handleSubmit}>
         <input type='text' className='search-input' placeholder='..חפש שאלה' onChange={(e)=> setInput(e.target.value)}></input>
         <button onClick={getQSearch}><h6>חפש</h6></button>
