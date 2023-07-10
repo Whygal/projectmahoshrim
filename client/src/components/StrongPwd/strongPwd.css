@@ -35,6 +35,7 @@
     margin-top: 10px;
     margin-bottom: 0px;
   }
+  
   .strength-weak::-webkit-progress-value {
     background-color: #e20b07;
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import "./strongPwd.css";
 
-const StrengthPwd = (props) => {
+const StrengthPwd = (props, actions) => {
 
   const pwdValidate = props.password;
   
@@ -13,7 +13,7 @@ const StrengthPwd = (props) => {
         pwdCheck += 1;
       }
     });
-    
+
     switch (pwdCheck) {
       case 0:
         return {
@@ -44,12 +44,9 @@ const StrengthPwd = (props) => {
         return null;
     }
   };
-//   {
-//     props.actions(initPwdChecker().val);
-//   }
+  
   return (
-    <>
-      <div className="wrapper">
+      <div className="wrapper" onChange={()=> actions(initPwdChecker().val)}>
         <progress
           className={`pwd-checker-bar strength-${initPwdChecker().val}`}
           value={initPwdChecker().strength}
@@ -57,17 +54,16 @@ const StrengthPwd = (props) => {
         />
         <br />
         <span className="pwd-label">
-          {props.password && (
+          {pwdValidate && (
             <div>
-              <span className={`label strength-${initPwdChecker().val}`}>
+              <div className={`label strength-${initPwdChecker().val}`}>
                 Password strength validation:
                 <strong>{initPwdChecker().val} </strong>
-              </span>
+              </div>
             </div>
           )}
         </span>
       </div>
-    </>
   );
 };
 export default StrengthPwd;

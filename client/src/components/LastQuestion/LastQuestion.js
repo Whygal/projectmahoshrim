@@ -3,10 +3,6 @@ import React from 'react'
 import Question from '../Question/Question'
 
 const LastQuestion = ({data}) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> 956135cf55c4b1253de264704abef6bb33a8838d
   return (
     <div>
         {data.map((q)=> 

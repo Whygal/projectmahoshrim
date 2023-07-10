@@ -8,6 +8,7 @@
 .history
 .env
 ./client/src/Key/key.js
+./Constants
 # testing
 /coverage
 
