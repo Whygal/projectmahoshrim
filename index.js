@@ -1,4 +1,4 @@
-import express, { json, request } from "express";
+import express, { json } from "express";
 import cors from "cors";
 import { set, Schema, model } from "mongoose";
 import { config } from "dotenv";
@@ -33,7 +33,7 @@ const user = new mongoose.Schema({
     },
     isManager:{
         type:Boolean,
-        default:false
+        default: false
     },
     dateCreated:{
         type: Date,
@@ -138,8 +138,10 @@ app.post('/Register', async(req,res)=> {
 app.post('/Login', async(req,res)=> {
     const {username, password} = req.body;
     const userLogged = await Users.findOne({username});
-    if(!userLogged)
-    res.status(400).json({error: "User Doesn't Exist"});
+    if(!userLogged){
+       res.status(400).json({error: "User Doesn't Exist"});
+       return
+    }
     const dbPassword = userLogged.password;
     bcrypt.compare(password, dbPassword).then((match)=> {
         if(!match){
@@ -149,7 +151,7 @@ app.post('/Login', async(req,res)=> {
             res.cookie("access-token", accessToken, {
                 maxAge: 60*60*10
             })
-            res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
+            res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email, isManager: userLogged.isManager})
         }
     })
 });
@@ -191,11 +193,11 @@ res.status(500).send({message:e})
   app.post("/api/blockUser", async(req, res)=>{
     try{
       const emailToBlock = req.body.email
-      // const userNameBlock = await Users.find({email:emailToBlock})
+      const usernameToBlock = req.body.username
 
       const userBlocked = new BlockUsers({
         email: emailToBlock,
-        // username: userNameBlock.username
+        username: usernameToBlock
       })
 
       await userBlocked.save() 

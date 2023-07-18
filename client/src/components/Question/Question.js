@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-
 import "./style.css"
+import { TextField } from '@mui/material'
 
 const Question = ({q,a,user}) => {
     const [ans, setAns] = useState([])
@@ -18,15 +18,24 @@ const Question = ({q,a,user}) => {
 
   return (
     <div>
-      <div>{user ? user.username + " שואל:" : ""}</div>
       <div>
-              <div onClick={() => handleAChange()}>
-                    <div className='Q'>
-                      {q}
-                      </div>
+      <TextField
+          id="outlined-read-only-input"
+          label={user ? user.username + " שואל:" : ""}
+          // defaultValue="Hello World"
+          onClick={() => handleAChange()}
+          value={q}
+          InputProps={{
+            readOnly: true,
+          }}
+          color="secondary" 
+          focused 
+        >  
+       </TextField>
+       </div>
+              <div>
               {ans}
               </div>
-       </div>
     </div>
   )
 }

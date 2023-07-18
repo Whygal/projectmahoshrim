@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import LastQuestion from '../LastQuestion/LastQuestion'
 import Question from '../Question/Question'
-
+import { Button, Input } from '@mui/material'
+import "./SearchBar.css"
 const SearchBar = ({input, setInput, data}) => {
 
     const [qSearch, setQSearch] = useState([])
@@ -20,8 +21,11 @@ const SearchBar = ({input, setInput, data}) => {
         
         return (
     <div className='search' onSubmit={handleSubmit}>
-        <input type='text' className='search-input' placeholder='..חפש שאלה' onChange={(e)=> setInput(e.target.value)}></input>
-        <button onClick={getQSearch}><h6>חפש</h6></button>
+      <div className='bar'>
+        <Input sx={{marginLeft: "3px"}} type='text' className='search-input' placeholder='חפש שאלה' onChange={(e)=> setInput(e.target.value)}/>
+        <Button sx={{marginRight:"3px"}} size='small' color="secondary" variant='contained' onClick={getQSearch}>חפש</Button>
+        </div>
+        <br></br>
         <div>{content}</div>
     </div>
   )

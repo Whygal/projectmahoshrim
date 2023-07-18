@@ -1,5 +1,5 @@
 .views{
-    width: fit-content;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,4 +11,8 @@
     justify-content: center;
     width: 100%;
     min-height: 18.8em;
+    background-color: rgb(229, 136, 229)
+}
+.page{
+    width: 100%;
 }

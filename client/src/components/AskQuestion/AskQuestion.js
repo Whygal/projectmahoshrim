@@ -1,8 +1,8 @@
-import { FormControlLabel, Checkbox, Button } from '@mui/material'
+import { FormControlLabel, Checkbox, Button, TextField } from '@mui/material'
 import React, {useContext, useState} from 'react'
 import Axios from "axios"
 import MyContext from '../../Context'
-
+import "./style.css"
 const AskQuestion = () => {
 
   const dataFromContext = useContext(MyContext)
@@ -35,10 +35,16 @@ const AskQuestion = () => {
   }
   
   return (
-    <div>
-     <label>מה השאלה?</label>
-     <input type="text" name='name' onChange={(e)=>{setQuestionAsked(e.target.value) }}/>
-     <FormControlLabel control={<Checkbox onClick={()=>agree()}/>} label="האם אתה מסכים לפרסם את השאלה?" ></FormControlLabel>
+    <div className='ask'>
+     <h5>מה השאלה?</h5>
+     <TextField 
+     type="text" 
+     name='name' 
+     placeholder='הכנס שאלה'
+     onChange={(e)=>{setQuestionAsked(e.target.value) }}
+     multiline
+     />
+     <FormControlLabel sx={{mx:"auto"}} control={<Checkbox onClick={()=>agree()}/>} label="האם אתה מסכים לפרסם את השאלה?" ></FormControlLabel>
      <Button onClick={() => dataFromContext.userId !== "" ? askQ() : noQ()}>שלח שאלה</Button>
      <p>{qStatus}</p>
      <div>{error}</div>

@@ -1,85 +1,67 @@
 import { useState } from "react";
 import React from "react";
-import StrengthPwd from "../StrongPwd/StrongPwd";
-
-const Form = () => {
-    const [pwdInput, initValue] = useState(
-        {password: "", 
-        
-        });
+import StrongPwd from "../StrongPwd/StrongPwd"
+import { Input } from "@mui/material";
+import "./style.css"
+const Form = ({setPasswordReg, setIsStrong}) => {
+    const [pwdInput, setPwdInput] = useState({password: ""});
     const [isError, setError] = useState(null);
-    const [isStrong, initRobustPassword] = useState("");
-
+    
+    const passwordLen = (password) => {
+      return 11 - password.length 
+    }
     const onChange = (e) => {
       let password = e.target.value;
-
-      initValue({
-        ...pwdInput,
-        password: password,
-        });
-
+      setPwdInput({password: password});
+      setPasswordReg(password)
+      const crntLen = passwordLen(password)
       // Error Handler
       setError(null);
       let caps, small, num, specialSymbol;
-
-      if (password.length <= 4) {
-        setError("הסיסמה חייבת להיות ארוכה יותר");
-        return;
+      
+      if (password.length <= 10) {
+        setError(" הסיסמה חייבת להיות באורך 10 תווים לפחות, חסרים עוד " + crntLen + " תווים ");
+        setIsStrong("")
       } else {
         caps = (password.match(/[A-Z]/g) || []).length;
         small = (password.match(/[a-z]/g) || []).length;
         num = (password.match(/[0-9]/g) || []).length;
         specialSymbol = (password.match(/\W/g) || []).length;
         if (caps < 1) {
-          setError("Must add one UPPERCASE letter");
+          setError("חייב להשתמש באות גדולה באנגלית!");
           return;
         } else if (small < 1) {
-          setError("Must add one lowercase letter");
+          setError("חייב להשתמש באות קטנה באנגלית!");
           return;
         } else if (num < 1) {
-          setError("Must add one number");
+          setError("חייב להוסיף מספר!");
           return;
         } else if (specialSymbol < 1) {
-          setError("Must add one special symbol: @$! % * ? &");
+          setError("חייב להוסיף סימון מיוחד: @$! % * ? &");
           return;
+        } else {
+          setIsStrong("strong");
         }
-      }
-    };
-
-    // To use Next on the the components as yor need...
-    const initPwdInput = async (childData) => {
-      initRobustPassword(childData);
-    };
-
-    const onSubmit = async (e) => {
-      try {
-        e.preventDefault();
-        e.persist();
-      } catch (error) {
-        throw error;
       }
     };
 
     return (
       <div className="center">
-        <form onSubmit={onSubmit}>
+        <form className="flex">
           <label>
-            <strong>Password</strong>
           </label>
           {isError !== null && <p className="errors"> - {isError}</p>}
-          <input
+          <Input
             type="password"
             id="password"
             name="password"
-            onChange={onChange}
+            placeholder="הכנס סיסמה"
+            onChange={(e)=>onChange(e)}
             required
           />
-          <StrengthPwd 
-          password={pwdInput.password} 
-          actions={initPwdInput}
+          <StrongPwd 
+          password={pwdInput.password}
            />
-          {isStrong === "strong" ? <button type="submit"> Register </button> : <div></div>}
-          <button onClick={()=>console.log(isStrong)}>test</button>
         </form>
       </div>
     );

@@ -1,0 +1,10 @@
+.bar{
+    display: flex;
+    align-items: center;
+    
+}
+.search{
+    background-color: white;
+    padding: 5%;
+    border-radius: 5%;
+}

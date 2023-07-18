@@ -1,7 +1,8 @@
 .wrapper {
-    width: 520px;
-    text-align: left;
-    margin: 55px auto;
+    width: 50vw;
+    text-align: right;
+    margin-top: 10px;
+    display: flex;
   }
   .wrapper {
     margin: 0 auto;
@@ -9,8 +10,9 @@
   .pwd-checker-bar {
     -webkit-appearance: none;
     appearance: none;
-    width: 100%;
+    width: 35%;
     height: 10px;
+    margin: auto;
   }
   .pwd-checker-bar::-webkit-progress-bar {
     background-color: rgb(246, 241, 241);
@@ -31,32 +33,33 @@
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
   }
+
   .label {
     margin-top: 10px;
     margin-bottom: 0px;
   }
   
-  .strength-weak::-webkit-progress-value {
+  .strength-חלש::-webkit-progress-value {
     background-color: #e20b07;
   }
-  .strength-fair::-webkit-progress-value {
+  .strength-בסדר::-webkit-progress-value {
     background-color: #ebbd04;
   }
-  .strength-good::-webkit-progress-value {
+  .strength-טוב::-webkit-progress-value {
     background-color: #0b75ed;
   }
-  .strength-strong::-webkit-progress-value {
+  .strength-חזק::-webkit-progress-value {
     background-color: #01a917;
   }
-  .weak span {
+  .חלש span {
     color: #e20b07;
   }
-  .strength-fair span {
+  .strength-בסדר span {
     color: #ebbd04;
   }
-  .strength-good span {
+  .strength-טוב span {
     color: #0b75ed;
   }
-  .strength-strong span {
+  .strength-חזק span {
     color: #01a917;
   }

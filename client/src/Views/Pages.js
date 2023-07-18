@@ -24,17 +24,17 @@ const Pages = () => {
 const [usernameLog, setUsernameLog] = useState("")
 const [name, setName] = useState("")
 const [userId, setUserId] = useState("")
-
+const [isManager, setIsManager] = useState(false)
   return (
             <div className='views'>
             <div className='page'>
-            <MyContext.Provider value={{name}}>
+            <MyContext.Provider value={{name, isManager}}>
             <Header/>
             </MyContext.Provider>
                           <div className='pages'>
                             <Routes>
                                     <Route path="/Login" element={
-                                    <MyContext.Provider value={{usernameLog, setUsernameLog, setName, setUserId}}>
+                                    <MyContext.Provider value={{usernameLog, setUsernameLog, setName, setUserId, setIsManager}}>
                                     <Login/>
                                     </MyContext.Provider>
                                     }/>

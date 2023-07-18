@@ -43,8 +43,10 @@ const UserManager = () => {
   const [toEdTip, setToEdTip] = useState("")
   const [editedTip, setEditedTip] = useState("")
   const [tip_idToEdText, setTip_idToEdText] = useState("")
-  //Users
-
+  
+  //Block Users
+  const [blockUsers, setBlockUsers] = useState([])
+  
   // async func
   const getQ = async () => {
     const response = await fetch(`http://localhost:8000/api/getAllQ`)
@@ -176,7 +178,26 @@ const UserManager = () => {
     setUsers(answer)
   }
   
+  //Block Users
   
+  const getAllBlockUsers = async() => {
+    const response = await fetch("http://localhost:8000/api/getBlockedUsers")
+    const answer = await response.json()
+    setBlockUsers(answer)
+  }
+
+  const delBlock = async (childData) => {
+    axios.delete
+    (`http://localhost:8000/api/removeBlock/${childData}`)
+    .then((res)=> {
+      if(res.data.message){
+        console.log(res.data.message)
+      }else{
+        console.log(res.data)
+      }
+    })
+  } 
+
   //Q useEffect
   useEffect(()=>{getQ()}, [questions])
 
@@ -186,7 +207,12 @@ const UserManager = () => {
   //tips useEffect
   useEffect(()=>{getTips()}, [tips])
 
+  // Users
   useEffect(()=>{getAllUsers()}, [users])
+  
+  //Block users 
+  useEffect(()=>{getAllBlockUsers()}, [blockUsers, users])
+
 
   //edit boxes func
 
@@ -352,7 +378,23 @@ const UserManager = () => {
         />
         }</div>)}
       </div>
-      {/* <Button onClick={()=> console.log(ans)}>test</Button> */}
+      <br></br>
+        <div>משתמשים חסומים:</div>
+        <br></br>
+      <div>
+        {blockUsers.map((u)=> 
+         <div key={u._id}>
+          <div>{u.username}</div>
+          <div>{u.email}</div>
+                 <div> {
+                          <MangerToolKit
+                          userIdRemoveBlock={u._id}
+                          delBlock={delBlock}
+                          />
+                  }</div>
+        </div>
+        )}
+      </div>
     </div>
     </div>
   )
