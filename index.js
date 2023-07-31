@@ -62,7 +62,7 @@ const QuestionsSchema = new Schema({
     },
     agreeToPublish:{
       type: Boolean,
-      default: false,
+      // default: false,
     },
     user:{
      type: mongoose.Schema.Types.ObjectId,
@@ -72,6 +72,10 @@ const QuestionsSchema = new Schema({
     date:{
       type: Date,
       default: Date.now()
+    },
+    username:{
+      type:String,
+      requierd: true
     },
 })
   
@@ -500,6 +504,26 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           })
 
+
+          app.post('/ChangePass/:email', async (req,res)=> {
+            try{
+              const {email} = req.params
+              const changePass = await Users.findOne({email})
+              if(!changePass){
+                res.status(404).send({message: "no such user with this email address"})
+              }
+              res.status(200).send({email:changePass.email})
+            }catch(e){
+              console.log(e)
+              res.status(500).send({message:e})
+
+            }
+          }
+          )
+          // res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
+   
+
+     
           app.post("/api/YtKey", async(req, res)=> {
             try{
             const apiKey = REACT_APP_API_KEY_YT

@@ -1,10 +1,12 @@
-import { FormControlLabel, Checkbox, Button, TextField } from '@mui/material'
-import React, {useContext, useState} from 'react'
-import Axios from "axios"
+import { FormControlLabel, Checkbox, Button } from '@mui/material'
+import React, {useState, useContext} from 'react'
 import MyContext from '../../Context'
+import Axios from "axios"
 import "./style.css"
-const AskQuestion = () => {
+import { TextField } from '@mui/material'
+import { BASE_URL } from '../../Constants/Const'
 
+const AskQuestion = () => {
   const dataFromContext = useContext(MyContext)
   const [agreeToPublish, setAgreeToPublish] = useState(false)
   const [questionAsked, setQuestionAsked] = useState("")
@@ -12,8 +14,8 @@ const AskQuestion = () => {
   const [error, setError] = useState("")
 
   const askQ = async () => {
-    Axios.post(`http://localhost:8000/api/addOneQ`, 
-      {q:questionAsked, agreeToPublish:agreeToPublish, user:dataFromContext.userId})
+    Axios.post(`${BASE_URL}/api/addOneQ`, 
+      {q:questionAsked , agreeToPublish:agreeToPublish, username:dataFromContext.username})
       .then((response)=>{
         if(response.data.message){
           setQStatus(response.data.message)
@@ -24,9 +26,7 @@ const AskQuestion = () => {
       })
   }
 
-  // useEffect(()=>{askQ()})
-
-  const agree = () => {
+  const agree = ()=> {
     setAgreeToPublish(!agreeToPublish)
   }
 
@@ -50,6 +50,6 @@ const AskQuestion = () => {
      <div>{error}</div>
     </div>
   )
-}
+  }
 
 export default AskQuestion

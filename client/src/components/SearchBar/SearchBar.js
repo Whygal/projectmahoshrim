@@ -11,11 +11,12 @@ const SearchBar = ({input, setInput, data}) => {
     const getQSearch = async ()=> {
       const response = await fetch(`http://localhost:8000/api/getQAndABySearch/${input}`)
       const answer = await response.json()
+      // console.log(answer);
       setQSearch(answer)
-      console.log(qSearch);
-    }
+  }
 
    const handleSubmit = (e)=> e.preventDefault()
+   
   
         const questions = qSearch.map((prop)=> <Question key={prop._id} q={prop.q_id.q} a={prop.a} user={prop.q_id.user}/>)
         const content = qSearch.length && input !== "" ? questions : <div className='controlLQ'><LastQuestion data={data}/><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>

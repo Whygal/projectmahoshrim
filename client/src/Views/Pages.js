@@ -1,6 +1,9 @@
-import React, { useContext, useState } from 'react'
-import {Route, Routes, Outlet} from "react-router-dom"
+
+import React, {useState} from 'react'
+import MyContext from '../Context'
+import {Route, Routes} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
+import "./style.css"
 import Main from "../components/Main/Main"
 import VideoCourses from "../components/VideoCourses/VideoCourses"
 import Tips from "../components/Tips/Tips"
@@ -16,8 +19,9 @@ import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
 import SingleVideo from '../components/SingleVideo/SingleVideo'
+import EmailJs from "../components/EmailJs/EmailJs"
 import "./style.css"
-import MyContext from '../Context'
+
 
 
 const Pages = () => {
@@ -40,7 +44,7 @@ const [isManager, setIsManager] = useState(false)
                                     </MyContext.Provider>
                                     }/>
                                     <Route path="/Register" element={<Register/>}/>
-                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
+                                  
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/AskQuestion" element={
                                     <MyContext.Provider value={{userId}}>
@@ -49,6 +53,7 @@ const [isManager, setIsManager] = useState(false)
                                     }/>
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
+                                    <Route path="/EmailJs" element={<EmailJs/>}/>
                                     <Route path="/About" element={<About/>}/>
                                     <Route path="*" element={<NotFound/>}/>
                                     <Route path="/Main" element={<Main/>}/>
@@ -57,6 +62,7 @@ const [isManager, setIsManager] = useState(false)
                                     <Route path="/UserManager" element={<UserManager/>}/>
                                     <Route path="/Admin" element={<Admin/>}/>
                                     <Route path="/SingleVideo/:id" element={<SingleVideo/>}/>
+                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
                             </Routes>
                           </div>
                   <Footer />

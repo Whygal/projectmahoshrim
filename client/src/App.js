@@ -1,11 +1,19 @@
+import React, {useState} from 'react';
 import './App.css';
 import Pages from './Views/Pages';
+import MyContext from './Context'
 
 function App() {
+  
+  const [username, setUsername] = useState("")
+
   return (
-    <div>
-            <Pages />
-     </div>
+    // <MyContext.Provider value={{username, setUsername}}>
+      <div>
+        <Pages />
+      </div>
+    // </MyContext.Provider>
+   
   );
 }
 

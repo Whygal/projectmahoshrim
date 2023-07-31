@@ -1,4 +1,6 @@
-import React, {useContext, useState} from 'react'
+
+import React, {useState, useContext} from 'react'
+import MyContext from '../../Context';
 import Axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../Constants/Const';
@@ -41,6 +43,9 @@ const Login = () => {
         <Button sx={{margin: "3%"}} color="secondary" variant='contained' onClick={() => login()}>כניסה</Button>
         <br></br>
         <Link to='/Register'>עוד אין לך חשבון?</Link>
+        <br></br>
+        <Link to='/EmailJs'>שכחת סיסמא?</Link>
+
         <h1>{loginStatus}</h1>
         <h2>{loginError === "Wrong username and password combination" ? "שם המשתמש או הסיסמה אינם נכונים " : <div></div>}</h2>
     </div>

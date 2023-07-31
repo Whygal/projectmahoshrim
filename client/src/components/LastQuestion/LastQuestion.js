@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Question from '../Question/Question'
 import "./style.css"
 const LastQuestion = ({data}) => {
+  const [allQ, setAllQ] = useState([])
+  const [num, setNum] = useState(-5)
+
+  const moreFive = ()=> {
+   setNum(num -5)
+  }
+
+
   return (
-    <div className='lineQ'>
-        {data.map((q)=> 
+    <div className='LastQuestion'>
+        {data.slice(num).reverse().map((q)=> 
         <Question
         key={q._id}
         q={q.q_id.q}
@@ -12,12 +20,10 @@ const LastQuestion = ({data}) => {
         q_id={q._id}
         user={q.q_id.user}
         />
-        )
-        }
-        {/* <button onClick={console.log(data)}>lo</button> */}
+        )}
+        <button onClick={moreFive}>הצג עוד שאלות</button>
     </div>
-    
   )
-}
+      }
 
 export default LastQuestion
