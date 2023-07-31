@@ -1,9 +1,7 @@
+import React, { useState } from 'react'
 
-import React, { useContext, useEffect, useState } from 'react'
-import MyContext from '../../Context'
 
-const LastQuestion = () => {
-
+const LastQuestion = ({data}) => {
 
   const [num, setNum] = useState(-5)
 
@@ -11,13 +9,15 @@ const LastQuestion = () => {
    setNum(num -5)
   }
 
-  useEffect(()=>{getAllQ()}, [])
-
   return (
-
     <div className='LastQuestion'>
-        {allQ.slice(num).reverse().map((item)=> 
-        <div>{item.q}</div>
+        {data.slice(num).reverse().map((q)=> 
+        <Question
+        key={q._id}
+        q={q.q_id.q}
+        a={q.a}
+        q_id={q._id}
+        />
         )}
         <button onClick={moreFive}>הצג עוד שאלות</button>
     </div>
