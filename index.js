@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt'
 
 
 config();
-const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, REACT_APP_API_KEY_YT } = process.env
+const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, KEY } = process.env
 const app = express()
 
 app.use(json())
@@ -88,10 +88,21 @@ const TipsSchema = new Schema({
 })
 
 const YtSchema = new Schema({
-
-  apiKey: {
-    type:String,
-    requierd: true
+  videoId:{
+    type: String,
+    required:true
+  },
+  tn:{
+    type: Object, 
+    required: true
+  },
+  title:{
+    type: String, 
+    required:true
+  },
+  date:{
+    type: Date,
+    default: Date.now()
   }
 })
 
@@ -253,9 +264,9 @@ app.post('/api/addOneQ', async(req, res)=> {
   app.delete('/api/delete/deleteOneQ/:id', async (req,res) => {
     try{
         const { id } = req.params
-        const deletedQ = await Q.findOneAndDelete({id: id})
+        const deletedQ = await Q.findOneAndDelete({_id: id})
         if(!deletedQ){
-            res.status(404).send({message:"no such todo with the specified id"})
+            res.status(404).send({message:"no such Q with the specified id"})
         }
         res.status(200).send(deletedQ)
   
@@ -287,7 +298,10 @@ app.post('/api/addOneQ', async(req, res)=> {
   
   app.get('/api/getAllA', async(req, res)=> {
     try{
-            const Answers = await A.find({}).populate("q_id")
+            const Answers = await A.find({}).populate("q_id") 
+            if(!Answers){
+            res.status(404).send({message:"no such A"})
+            }
             res.status(200).send(Answers)
     }catch(e){
         console.log(e)
@@ -312,14 +326,12 @@ app.post('/api/addOneQ', async(req, res)=> {
         const { id } = req.params
         const deletedA = await A.findOneAndDelete({id: id})
         if(!deletedA){
-            res.status(404).send({message:"no such todo with the specified id"})
+            res.status(404).send({message:"no such A with the specified id"})
         }
         res.status(200).send(deletedA)
-  
     } catch(e){
         console.log(e)
         res.status(500).send({message:e})
-  
     }
   })
 
@@ -390,6 +402,7 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           })
 
+
           app.post('/ChangePass/:email', async (req,res)=> {
             try{
               const {email} = req.params
@@ -431,15 +444,48 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           })
 
+     
+          app.post("/api/YtKey", async(req, res)=> {
+            try{
+            const apiKey = REACT_APP_API_KEY_YT
+            const postKey = new Yt({
+              apiKey: apiKey
+            })
+          await postKey.save()
+          res.status(200).send(postKey)
+        }catch(e){
+          console.log(e)
+          res.status(500).send({message:e})
+        }
+          })
           
+          app.get('/api/getYtKey', async(req, res)=> {
+            try{
+                    const key = await Yt.findOne({})
+                    res.status(200).send(key)
+            }catch(e){
+                console.log(e)
+                res.status(500).send({message:e})
+            }
+          })
+
+          app.delete('/api/delYt', async(req, res)=> {
+            try{
+              const { id } = req.body
+                    const key = await Yt.findOneAndDelete({id: id})
+                    res.status(200).send(key)
+            }catch(e){
+                console.log(e)
+                res.status(500).send({message:e})
+            }
+          })
 
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}, (err)=>{
+}, ()=>{
     app.listen(PORT, () => {
-    console.log("err", err)
     console.log("i am listening");
     })    
   })
