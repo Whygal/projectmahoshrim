@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt'
 
 
 config();
-const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, KEY } = process.env
+const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME} = process.env
 const app = express()
 
 app.use(json())
