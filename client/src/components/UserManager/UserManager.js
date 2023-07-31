@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Axios from 'axios'
+import SearchBar from '../SearchBar/SearchBar'
 
 const UserManager = () => {
 
@@ -85,6 +86,13 @@ const UserManager = () => {
     setTips(answer)
   }
 
+  //User searchBar
+  const getUser = async() =>{
+    const response = await fetch('http://localhost:8000/api/getAllUsers')
+    const answer = await response.json()
+
+  } 
+
   //Q useEffect
   useEffect(()=>{getQ()})
   useEffect(()=>{deleteQ()})
@@ -100,9 +108,11 @@ const UserManager = () => {
 
   return (
     <div>
+      <input placeholder='חפש משתמש'></input>
       <div>{questions}</div>
       <div>{users}</div>
       <div>{tips}</div>
+      <SearchBar/>
     </div>
   )
 }

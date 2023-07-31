@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt'
 
 
 config();
-const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, KEY } = process.env
+const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, REACT_APP_API_KEY_YT } = process.env
 const app = express()
 
 app.use(json())
@@ -88,21 +88,10 @@ const TipsSchema = new Schema({
 })
 
 const YtSchema = new Schema({
-  videoId:{
-    type: String,
-    required:true
-  },
-  tn:{
-    type: Object, 
-    required: true
-  },
-  title:{
-    type: String, 
-    required:true
-  },
-  date:{
-    type: Date,
-    default: Date.now()
+
+  apiKey: {
+    type:String,
+    requierd: true
   }
 })
 
@@ -136,8 +125,10 @@ app.post('/Register', (req,res)=> {
 app.post('/Login', async(req,res)=> {
     const {username, password} = req.body;
     const userLogged = await Users.findOne({username});
-    if(!userLogged)
-    res.status(400).json({error: "User Doesn't Exist"});
+    if(!userLogged){
+      res.status(400).json({error: "User Doesn't Exist"});
+      return
+    }
     const dbPassword = userLogged.password;
     bcrypt.compare(password, dbPassword).then((match)=> {
         if(!match){
@@ -416,6 +407,29 @@ app.post('/api/addOneQ', async(req, res)=> {
           )
           // res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
    
+          app.post("/api/YtKey", async(req, res)=> {
+            try{
+            const apiKey = REACT_APP_API_KEY_YT
+            const postKey = new Yt({
+              apiKey: apiKey
+            })
+          await postKey.save()
+          res.status(200).send(postKey)
+        }catch(e){
+          console.log(e)
+          res.status(500).send({message:e})
+        }
+          })
+
+          app.get('/api/getYtKey', async(req, res)=> {
+            try{
+                    const key = await Yt.findOne({})
+                    res.status(200).send(key)
+            }catch(e){
+                console.log(e)
+                res.status(500).send({message:e})
+            }
+          })
 
           
 
