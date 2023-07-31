@@ -4,7 +4,7 @@ import MangerToolKit from '../mangerToolKit/MangerToolKit'
 import axios from 'axios'
 import EditBox from "../EditBox/EditBox"
 import AnsBox from '../../AnsBox/AnsBox'
-import { Button, FormControl, Input } from '@mui/material'
+import { Button, FormControl, Input, TextField } from '@mui/material'
 import "./style.css"
 import Users from '../../Users/Users'
 const UserManager = () => {
@@ -198,6 +198,30 @@ const UserManager = () => {
     })
   } 
 
+  const becomeManager = async(id) =>{
+       axios.put(`http://localhost:8000/api/isManager/${id}`, {isManager: "true"})
+    .then((res)=> {
+      if(res.data.message){
+        console.log(res.data.message)
+      }else{
+        console.log(res.data)
+      }
+    }
+    ).catch((e)=>console.log(e))
+  }
+
+  const removeManager = async(id) =>{
+    axios.put(`http://localhost:8000/api/isManager/${id}`, {isManager: "false"})
+ .then((res)=> {
+   if(res.data.message){
+     console.log(res.data.message)
+   }else{
+     console.log(res.data)
+   }
+ }
+ ).catch((e)=>console.log(e))
+}
+
   //Q useEffect
   useEffect(()=>{getQ()}, [questions])
 
@@ -242,55 +266,56 @@ const UserManager = () => {
   }
 
   return (
-    <div>
-      <div>שאלות</div>
-    <div className='manger'>
-      <div className='qZone'>
-              {questions.map((q)=> 
-              <div key={q._id}>
-              <Question
-              q={q.q}
-              user={q.user}
-              > 
-              </Question>
-              <div>
-                <div>
-              <MangerToolKit
-              q_id={q._id}
-              q_Text={q.q}
-              q_idToDel={q_idToDel}
-              editFunc={editFunc}
-              toAnsQ={toAnsQ}
-              >                
-              </MangerToolKit>
-              </div>
-              {editBoxOpen && q_idToEdText === q._id ? 
-              <div>
-              <EditBox 
-              key={q.id}
-              q_Text={toEd}
-              setEditedQ={setEditedQ}
-              editQ={editQ}
-              />
-              </div>: <div></div>}
-              {ansBoxOpen && post_a_box === q._id ?
-              <div>
-                <AnsBox
-                setToAns={setToAns}
-                toAns={toAns}
-                postAns={postAns}
-                />
-              </div> :
-              <div></div>
-              }
-              </div>
-      </div>
-      )}
+    <div>         
+     <div className='manger'>
+            <div className='general'>
+              <p>שאלות</p>
+                   <div className='qZone'>
+                              {questions.map((q)=> 
+                              <div key={q._id}>
+                              <Question
+                              q={q.q}
+                              user={q.user}
+                              > 
+                              </Question>
+                              <div>
+                                      <div>
+                                      <MangerToolKit
+                                      q_id={q._id}
+                                      q_Text={q.q}
+                                      q_idToDel={q_idToDel}
+                                      editFunc={editFunc}
+                                      toAnsQ={toAnsQ}
+                                      >                
+                                      </MangerToolKit>
+                                      </div>
+                                          {editBoxOpen && q_idToEdText === q._id ? 
+                                          <div>
+                                          <EditBox 
+                                          key={q.id}
+                                          q_Text={toEd}
+                                          setEditedQ={setEditedQ}
+                                          editQ={editQ}
+                                          />
+                                          </div>: <div></div>}
+                                          {ansBoxOpen && post_a_box === q._id ?
+                                          <div>
+                                            <AnsBox
+                                            setToAns={setToAns}
+                                            toAns={toAns}
+                                            postAns={postAns}
+                                            />
+                                          </div> :
+                                          <div></div>
+                                          }
+                              </div>
+                      </div>
+                      )}
+            </div>
       </div>
 
+      <div className='general'>
       <div>שאלות עם  תשובה</div>
-
-      <div>
         {ans.map((a)=> a.q_id !== undefined) ? ans.map((a)=>
       <div key={a._id}>
       <div>  
@@ -323,9 +348,9 @@ const UserManager = () => {
       </div>
       ) : <div></div>}
       </div>
-
+        <div className='general'>
       <p>טיפים</p>
-      <button onClick={()=> setAnsBoxOpen(!ansBoxOpen)}>post tip</button>
+      <Button variant='contained' onClick={()=> setAnsBoxOpen(!ansBoxOpen)}>פרסם טיפ</Button>
       { ansBoxOpen ?
       <FormControl>
       <Input
@@ -333,16 +358,20 @@ const UserManager = () => {
       multiline
       >
       </Input>
-      <Button onClick={()=> postTip()}>POST</Button>
+      <Button onClick={()=> postTip()}>פרסם</Button>
       </FormControl>
        : <div></div> }
       <div>
         {tips.map(
           (t)=>
           <div key={t._id} >
-            <div className='tips'>
-              {t.tip}
-            </div>
+            <TextField 
+            value={t.tip} 
+            InputProps={{
+              readOnly: true,
+            }}
+            >
+            </TextField>
             <div>
               <MangerToolKit
               tipId={t._id}
@@ -365,7 +394,9 @@ const UserManager = () => {
           </div>
       )}
       </div>
+      </div>
       <br></br>
+      <div className='general'>
         <div>משתמשים:</div>
         <br></br>
       <div>
@@ -375,10 +406,19 @@ const UserManager = () => {
         username={u.username}
         userId={u._id}
         email={u.email}
-        />
-        }</div>)}
+        />}
+        <div>
+        <Button onClick={()=> becomeManager(u._id)}>הפוך למנהל</Button>
+        </div>
+        <div>
+        <Button onClick={()=> removeManager(u._id)}>הורד מניהול</Button>
+        </div>
+        </div>
+        )}
+      </div>
       </div>
       <br></br>
+        <div className='general'>
         <div>משתמשים חסומים:</div>
         <br></br>
       <div>
@@ -394,6 +434,7 @@ const UserManager = () => {
                   }</div>
         </div>
         )}
+        </div>
       </div>
     </div>
     </div>

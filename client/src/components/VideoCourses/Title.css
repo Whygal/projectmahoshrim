@@ -1,0 +1,16 @@
+.Title{
+        font-family: "Roboto","Arial",sans-serif;
+    font-size: 100%;
+    line-height: 2.2rem;
+    font-weight: 500;
+    display: flex;
+    max-height: 4.4rem;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+    width: 12rem;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-align: center;
+}

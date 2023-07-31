@@ -1,9 +1,9 @@
 import React from 'react'
 import Question from '../Question/Question'
-
+import "./style.css"
 const LastQuestion = ({data}) => {
   return (
-    <div>
+    <div className='lineQ'>
         {data.map((q)=> 
         <Question
         key={q._id}
@@ -14,6 +14,7 @@ const LastQuestion = ({data}) => {
         />
         )
         }
+        {/* <button onClick={console.log(data)}>lo</button> */}
     </div>
     
   )

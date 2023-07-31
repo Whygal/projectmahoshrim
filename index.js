@@ -231,7 +231,34 @@ res.status(500).send({message:e})
   
     }
   })
- //Q
+
+  //user upgrade
+  app.put("/api/isManager/:id", async(req, res)=>{
+    const {userId} = req.params
+    const update = Object.keys(req.body)
+    const isValidOperation = update.every((update) =>
+    allowedUpdate.includes(update)
+    );
+    
+    if (!isValidOperation) {
+        res.status(400).send({message: "Invalid updates"})
+    }else{
+      try{
+      const getUser = await Users.findOne({id: userId})
+    if(!getUser){
+      res.status(400).send("No User")
+      return
+    }
+    update.forEach((update) => (getUser[update] = req.body[update]));
+      await getUser.save();
+      res.status(200).send(getUser.isManager)
+  } catch (e){
+    console.log(e)
+        res.status(500).send({message:e})
+  }
+  }
+  })
+   //Q
 
 app.post('/api/addOneQ', async(req, res)=> {
     try{
@@ -265,7 +292,6 @@ app.post('/api/addOneQ', async(req, res)=> {
       try{
         const {search} = req.params
         const qSearch = await Q.find({q: {$regex: `${search}`}})
-        console.log(qSearch);
         res.status(200).send(qSearch)
       }catch(e){
         console.log(e)
@@ -287,6 +313,7 @@ app.post('/api/addOneQ', async(req, res)=> {
     app.post('/api/addAllQ', async(req, res)=> {
       try{
               const Questions = Q.insertMany(req.body) 
+              Questions.save()
               res.status(200).send(Questions)
       }catch(e){
           console.log(e)
@@ -378,6 +405,18 @@ app.post('/api/addOneQ', async(req, res)=> {
         console.log(e)
         res.status(500).send({message:e})
     }
+  })
+
+  app.get("/api/getQAndABySearch/:search", async(req, res)=>{
+    try{
+    const {search} = req.params
+    const answers = await A.find({}).populate({path: "q_id", populate: {path:"user"}}).exec() 
+    const aArr = answers.filter(ans=> ans.q_id.q.includes(search))
+    res.status(200).send(aArr)
+  }catch(e){
+    console.log(e)
+    res.status(500).send({message:e})
+  }
   })
   
   app.delete('/api/delete/deleteOneA/:id', async (req,res) => {

@@ -16,8 +16,8 @@ const Main = () => {
 
     useEffect(()=>{qsData()})
   return (
-    <div>
-      <SearchBar input={input} setInput={setInput} data={data} />
+    <div className='main'>
+      <SearchBar input={input} setInput={setInput} data={data}/>
     </div>
   )
 }

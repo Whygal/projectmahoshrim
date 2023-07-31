@@ -9,15 +9,16 @@ const SearchBar = ({input, setInput, data}) => {
     const [qSearch, setQSearch] = useState([])
 
     const getQSearch = async ()=> {
-      const response = await fetch(`http://localhost:8000/api/getQBySearch/${input}`)
+      const response = await fetch(`http://localhost:8000/api/getQAndABySearch/${input}`)
       const answer = await response.json()
       setQSearch(answer)
-  }
+      console.log(qSearch);
+    }
 
    const handleSubmit = (e)=> e.preventDefault()
   
-        const questions = qSearch.map((prop)=> <Question key={prop._id} q={prop.q} a={prop}></Question>)
-        const content = qSearch.length ? questions : <div><LastQuestion data={data}/><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
+        const questions = qSearch.map((prop)=> <Question key={prop._id} q={prop.q_id.q} a={prop.a} user={prop.q_id.user}/>)
+        const content = qSearch.length && input !== "" ? questions : <div className='controlLQ'><LastQuestion data={data}/><Link to={'/AskQuestion'}>לשליחת שאלה הקש כאן</Link></div>
         
         return (
     <div className='search' onSubmit={handleSubmit}>
@@ -26,7 +27,7 @@ const SearchBar = ({input, setInput, data}) => {
         <Button sx={{marginRight:"3px"}} size='small' color="secondary" variant='contained' onClick={getQSearch}>חפש</Button>
         </div>
         <br></br>
-        <div>{content}</div>
+        <div className='q'>{content}</div>
     </div>
   )
 }

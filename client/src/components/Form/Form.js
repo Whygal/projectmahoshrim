@@ -8,18 +8,19 @@ const Form = ({setPasswordReg, setIsStrong}) => {
     const [isError, setError] = useState(null);
     
     const passwordLen = (password) => {
-      return 11 - password.length 
+      return 10 - password.length 
     }
     const onChange = (e) => {
       let password = e.target.value;
       setPwdInput({password: password});
       setPasswordReg(password)
       const crntLen = passwordLen(password)
+
       // Error Handler
       setError(null);
       let caps, small, num, specialSymbol;
       
-      if (password.length <= 10) {
+      if (password.length < 10) {
         setError(" הסיסמה חייבת להיות באורך 10 תווים לפחות, חסרים עוד " + crntLen + " תווים ");
         setIsStrong("")
       } else {
@@ -29,16 +30,13 @@ const Form = ({setPasswordReg, setIsStrong}) => {
         specialSymbol = (password.match(/\W/g) || []).length;
         if (caps < 1) {
           setError("חייב להשתמש באות גדולה באנגלית!");
-          return;
+          console.log(small);
         } else if (small < 1) {
           setError("חייב להשתמש באות קטנה באנגלית!");
-          return;
         } else if (num < 1) {
           setError("חייב להוסיף מספר!");
-          return;
         } else if (specialSymbol < 1) {
           setError("חייב להוסיף סימון מיוחד: @$! % * ? &");
-          return;
         } else {
           setIsStrong("strong");
         }

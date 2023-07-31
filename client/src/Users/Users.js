@@ -1,6 +1,7 @@
 import React from 'react'
 import "./style.css"
 import axios from 'axios'
+import { Button } from '@mui/material'
 const Users = ({username, userId, email}) => {
 
     const deleteAndBlockUser = async(userId, email, username) => {
@@ -13,7 +14,7 @@ const Users = ({username, userId, email}) => {
   return (
     <div>
         <div>{username}</div>
-        <button onClick={()=> deleteAndBlockUser(userId, email, username)}>מחק וחסום משתמש זה</button>
+        <Button  onClick={()=> deleteAndBlockUser(userId, email, username)}>מחק וחסום משתמש זה</Button>
     </div>
   )
 }

@@ -15,6 +15,7 @@ import AnswerQuestion from '../components/AnswerQuestion/AnswerQuestion'
 import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
+import SingleVideo from '../components/SingleVideo/SingleVideo'
 import "./style.css"
 import MyContext from '../Context'
 
@@ -55,6 +56,7 @@ const [isManager, setIsManager] = useState(false)
                                     <Route path="/postQuestion" element={<PostQuestion/>}/>
                                     <Route path="/UserManager" element={<UserManager/>}/>
                                     <Route path="/Admin" element={<Admin/>}/>
+                                    <Route path="/SingleVideo/:id" element={<SingleVideo/>}/>
                             </Routes>
                           </div>
                   <Footer />
