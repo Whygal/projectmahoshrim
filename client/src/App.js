@@ -3,7 +3,6 @@ import './App.css';
 import Pages from './Views/Pages';
 import MyContext from './Context'
 
-
 function App() {
   
   const [username, setUsername] = useState("")

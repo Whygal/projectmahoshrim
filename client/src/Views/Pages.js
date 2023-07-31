@@ -37,7 +37,7 @@ const Pages = () => {
                             <Routes>
                                     <Route path="/Login" element={<Login/>}/>
                                     <Route path="/Register" element={<Register/>}/>
-                                    {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
+                                  
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/AskQuestion" element={<AskQuestion/>}/>
                                     <Route path="/LastQuestion" element={<LastQuestion/>}/>

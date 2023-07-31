@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Question from '../Question/Question'
 import MangerToolKit from '../mangerToolKit/MangerToolKit'
 import axios from 'axios'
+import SearchBar from '../SearchBar/SearchBar'
 
 
 const UserManager = () => {
@@ -102,13 +103,6 @@ const UserManager = () => {
     })
   }
 
-  //tips
-//  const getTips = async() => {
-//     const response = await fetch("http://localhost:8000/api/getTips")
-//     const answer = await response.json()
-//     setTips(answer)
-//   }
-
   //Q useEffect
   useEffect(()=>{getQ()}, [questions])
 
@@ -124,49 +118,9 @@ const UserManager = () => {
 
   return (
     <div>
-      <div>שאלות</div>
-    <div className='manger'>
-      <div className='qZone'>
-              {questions.map((q)=> 
-              <div key={q._id}>
-              <Question
-              q={q.q}
-              > 
-              </Question>
-              <div>
-              <MangerToolKit
-              q_id={q._id}
-              q_Text={q.q}
-              q_idToDel={q_idToDel}
-              editQ={editQ}
-              >                
-              </MangerToolKit>
-              </div>
-      </div>
-      )}
-      </div>
-
-      <div>שאלות עם  תשובה</div>
-
-      <div>{ans.map((a)=>
-      <div key={a._id}>
-      <Question
-      q={a.q_id.q}
-      a={a.a}
-      q_id={a.q_id.q_id}
-      />
-      <MangerToolKit
-      a_id={a._id}
-      a_idToDel={a_idToDel}
-      >
-      </MangerToolKit>
-      </div>
-      )}
-      </div>
-
-      {/* <div>{users}</div> */}
-      {/* <div>{tips.map((t)=>t.tips)}</div> */}
-    </div>
+      <div>{questions}</div>
+      <div>{users}</div>
+      <div>{tips}</div>
     </div>
   )
 }
