@@ -4,7 +4,6 @@ import MyContext from '../../Context';
 import Axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../Constants/Const';
-import MyContext from '../../Context';
 import { Input, Button } from '@mui/material';
 import "./style.css"
 const Login = () => {

@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import MyContext from '../Context'
 import {Route, Routes} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
@@ -19,7 +19,7 @@ import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
 import SingleVideo from '../components/SingleVideo/SingleVideo'
-import EmailJs from "../components/EmailJs/EmailJs"
+// import EmailJs from "../components/EmailJs/EmailJs"
 import "./style.css"
 
 
@@ -53,7 +53,7 @@ const [isManager, setIsManager] = useState(false)
                                     }/>
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
-                                    <Route path="/EmailJs" element={<EmailJs/>}/>
+                                    {/* <Route path="/EmailJs" element={<EmailJs/>}/> */}
                                     <Route path="/About" element={<About/>}/>
                                     <Route path="*" element={<NotFound/>}/>
                                     <Route path="/Main" element={<Main/>}/>
