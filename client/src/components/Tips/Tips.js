@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Tip from './Tip.js'
+import { Stack } from '@mui/material'
+
 const Tips = () => {
   const [tips, setTips] = useState([])
 
@@ -12,12 +14,15 @@ const Tips = () => {
   useEffect(()=>{getTips()})
 
   return (
-    <div>{tips.map((t)=>
-    <Tip
-    key={t._id}
-    tip={t.tip}
-    />
+    <div>
+      <Stack spacing={2}>
+      {tips.map((t)=>
+          <Tip
+          key={t._id}
+          tip={t.tip}
+          />    
     )}
+    </Stack>
       </div>
   )
 }

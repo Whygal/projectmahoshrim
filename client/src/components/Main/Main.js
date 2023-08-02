@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "./style.css"
 import SearchBar from '../SearchBar/SearchBar'
 
+
 const Main = () => {
   const [input, setInput] = useState('')
   const [data, setData] = useState([])
@@ -11,11 +12,12 @@ const Main = () => {
         const answer = await response.json()
         setData(answer)
     }
+    
 
     useEffect(()=>{qsData()})
   return (
-    <div>
-      <SearchBar input={input} setInput={setInput} data={data} />
+    <div className='main'>
+      <SearchBar input={input} setInput={setInput} data={data}/>
     </div>
   )
 }

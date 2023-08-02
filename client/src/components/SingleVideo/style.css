@@ -1,5 +1,5 @@
-.lineQ{
-    display: flex;  
+.single{
+    display: flex;
     align-items: center;
     flex-direction: column;
 }

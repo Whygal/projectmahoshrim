@@ -6,10 +6,16 @@
     flex-direction: row-reverse;
     list-style: none;
     background-color: #0ab1a0;
-    height: 200px;
-    width: 100vw;
+    height: 12.5rem;
+    width: 100%;
     position: sticky;
     top: 0;
+    z-index: 2;
+}
+@media screen and (max-width: 515px){
+    .header{
+        height: 17.5rem;
+    }
 }
 
 .login-register{
@@ -48,4 +54,9 @@
     font-size: large;
     transition: 0.4s;
     color: white;
+}
+.router{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }

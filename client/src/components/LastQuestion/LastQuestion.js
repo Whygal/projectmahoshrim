@@ -1,33 +1,25 @@
-
-import React, { useContext, useEffect, useState } from 'react'
-import MyContext from '../../Context'
-
-const LastQuestion = () => {
-
-
+import React, { useState } from 'react'
+import Question from '../Question/Question'
+import "./style.css"
+const LastQuestion = ({data}) => {
   const [allQ, setAllQ] = useState([])
   const [num, setNum] = useState(-5)
-
-  
-
-  const getAllQ = async ()=> {
-    const response = await fetch("http://localhost:8000/api/getAllQ")
-    const answer = await response.json()
-    setAllQ(answer)
-  }
-
 
   const moreFive = ()=> {
    setNum(num -5)
   }
 
-  useEffect(()=>{getAllQ()}, [])
 
   return (
-
     <div className='LastQuestion'>
-        {allQ.slice(num).reverse().map((item)=> 
-        <div>{item.q}</div>
+        {data.slice(num).reverse().map((q)=> 
+        <Question
+        key={q._id}
+        q={q.q_id.q}
+        a={q.a}
+        q_id={q._id}
+        user={q.q_id.user}
+        />
         )}
         <button onClick={moreFive}>הצג עוד שאלות</button>
     </div>
