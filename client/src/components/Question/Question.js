@@ -1,32 +1,46 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
+import { TextField, Typography, Box } from '@mui/material';
 
-import "./style.css"
+const Question = ({ q, a, user }) => {
+  const [open, setOpen] = useState(false);
 
-const Question = ({q,a}) => {
-    const [ans, setAns] = useState([])
-    const [open, setOpen] = useState(false)
-    
-  const handleAChange = () =>{
-    setOpen(!open)
-    if(open){
-      setAns(a)
-    }else{
-      setAns([])
-    }
-  }
+  const handleAChange = () => {
+    setOpen(!open);
+  };
 
   return (
-    <div>
-      <div>
-              <div onClick={() => handleAChange()}>
-                    <div className='Q'>
-                      {q}
-                      </div>
-              {ans}
-              </div>
-       </div>
-    </div>
-  )
-}
+    <Box className='sQ' mb={2} p={2} boxShadow={3}>
+      <TextField
+        label={user ? `${user.username} שואל:` : ''}
+        onClick={handleAChange}
+        value={q}
+        fullWidth
+        InputProps={{
+          readOnly: true,
+        }}
+        color="secondary"
+        multiline
+        rows={5}
+      />
 
-export default Question
+      {open && (
+        <Box mt={2}>
+          <Typography variant="h5">תשובה:</Typography>
+          <TextField
+            value={a}
+            InputProps={{
+              readOnly: true,
+            }}
+            color="secondary"
+            focused
+            multiline
+            fullWidth
+            rows={5}
+          />
+        </Box>
+      )}
+    </Box>
+  );
+};
+
+export default Question;

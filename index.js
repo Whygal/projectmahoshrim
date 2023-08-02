@@ -33,12 +33,26 @@ const user = new mongoose.Schema({
     },
     isManager:{
         type:Boolean,
-        default:false
+        default: false
     },
     dateCreated:{
         type: Date,
         default: Date.now(),
     }
+})
+
+const blockUsersSchema = new Schema({
+  email:{
+      type: String,
+      required: true,
+  },
+  username: {
+    type: String,
+  },
+  date:{
+    type: Date,
+    default: Date.now()  
+  }
 })
 
 const QuestionsSchema = new Schema({
@@ -49,6 +63,11 @@ const QuestionsSchema = new Schema({
     agreeToPublish:{
       type: Boolean,
       // default: false,
+    },
+    user:{
+     type: mongoose.Schema.Types.ObjectId,
+     ref: "Users",
+     require: true,
     },
     date:{
       type: Date,
@@ -87,58 +106,45 @@ const TipsSchema = new Schema({
   }
 })
 
-const YtSchema = new Schema({
-  videoId:{
-    type: String,
-    required:true
-  },
-  tn:{
-    type: Object, 
-    required: true
-  },
-  title:{
-    type: String, 
-    required:true
-  },
-  date:{
-    type: Date,
-    default: Date.now()
-  }
-})
 
 const Users = mongoose.model('Users', user);
 const Q = model('Q', QuestionsSchema);
 const A = model('A', AnswerSchema);
-const Tips = model("Tips", TipsSchema)
-const Yt = model("Yt", YtSchema)
+const Tips = model("Tips", TipsSchema);
+const BlockUsers = model("blockUsers", blockUsersSchema);
 
-app.post('/Register', (req,res)=> {
+app.post('/Register', async(req,res)=> {
     const username = req.body.username
     const password = req.body.password
     const email = req.body.email
-    bcrypt.hash(password, 10).then((hash)=>{
+    const blockEmails = await BlockUsers.find({})
+    const emailsBlocked =  blockEmails.map(user=>user.email)
+    const isBlocked = emailsBlocked.includes(email)
+    if(isBlocked){
+      res.status(400).json({massage: "you have been blocked"})
+    }else{
+      bcrypt.hash(password, 10).then((hash)=>{
         Users.create({
             username: username,
             password: hash,
             email: email
         })
-        .then(()=> {
-            res.status(200).send({response})
-            res.json("USER REGISTERED");
-        }).catch((err)=> {
-            if(err)
-            res.status(400).json({message: "This Username Is Already Used"});
+        .then((response)=> {
+            res.status(200).send({response})   
+        })
+        .catch((err)=> {
+           res.status(400).json({err})
         })
     })
-  
+  }
 })
 
 app.post('/Login', async(req,res)=> {
     const {username, password} = req.body;
     const userLogged = await Users.findOne({username});
     if(!userLogged){
-      res.status(400).json({error: "User Doesn't Exist"});
-      return
+       res.status(400).json({error: "User Doesn't Exist"});
+       return
     }
     const dbPassword = userLogged.password;
     bcrypt.compare(password, dbPassword).then((match)=> {
@@ -149,7 +155,7 @@ app.post('/Login', async(req,res)=> {
             res.cookie("access-token", accessToken, {
                 maxAge: 60*60*10
             })
-            res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
+            res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email, isManager: userLogged.isManager})
         }
     })
 });
@@ -171,17 +177,102 @@ app.get('/api/getAllUsers', async(req, res)=> {
   }
 })
 
- //Q
+app.delete(`/api/deleteUser/:id`,  async(req, res)=>{
+  try{
+    const { id } = req.params
+    const deleteUser = await Users.findOneAndDelete({_id: id})
+    if(!deleteUser){
+      res.status(404).send({message:"no such User with the specified id"})
+    }
+    res.status(200).send((deleteUser))
+
+}catch(e){
+console.log(e)
+res.status(500).send({message:e})
+}
+})
+
+  //block user
+
+  app.post("/api/blockUser", async(req, res)=>{
+    try{
+      const emailToBlock = req.body.email
+      const usernameToBlock = req.body.username
+
+      const userBlocked = new BlockUsers({
+        email: emailToBlock,
+        username: usernameToBlock
+      })
+
+      await userBlocked.save() 
+      res.status(200).send(userBlocked)
+    }catch(e){
+      console.log(e)
+      res.status(500).send({message:e})
+    }
+  })
+
+  app.get(`/api/getBlockedUsers`, async(req, res)=>{
+    const userBlocked = await BlockUsers.find({})
+    if(!userBlocked){
+      res.status(400).send("no user")
+    }
+    res.status(200).send(userBlocked)
+  })
+
+  app.delete('/api/removeBlock/:id', async (req,res) => {
+    try{
+        const { id } = req.params
+        const deletedBlockUser = await BlockUsers.findOneAndDelete({_id: id})
+        if(!deletedBlockUser){
+            res.status(404).send({message:"no such Block User with the specified id"})
+        }
+        res.status(200).send(deletedBlockUser)
+  
+    } catch(e){
+        console.log(e)
+        res.status(500).send({message:e})
+  
+    }
+  })
+
+  //user upgrade
+  app.put("/api/isManager/:id", async(req, res)=>{
+    const {userId} = req.params
+    const update = Object.keys(req.body)
+    const isValidOperation = update.every((update) =>
+    allowedUpdate.includes(update)
+    );
+    
+    if (!isValidOperation) {
+        res.status(400).send({message: "Invalid updates"})
+    }else{
+      try{
+      const getUser = await Users.findOne({id: userId})
+    if(!getUser){
+      res.status(400).send("No User")
+      return
+    }
+    update.forEach((update) => (getUser[update] = req.body[update]));
+      await getUser.save();
+      res.status(200).send(getUser.isManager)
+  } catch (e){
+    console.log(e)
+        res.status(500).send({message:e})
+  }
+  }
+  })
+   //Q
 
 app.post('/api/addOneQ', async(req, res)=> {
     try{
             const Question = req.body.q
             const Checkbox = req.body.agreeToPublish
-            const Username = req.body.username
+            const User = req.body.user
             const NewQ = new Q({
               q:Question,
               agreeToPublish: Checkbox,
-              username: Username
+              user:User
             })
             await NewQ.save()
             res.status(200).send(NewQ)
@@ -193,7 +284,7 @@ app.post('/api/addOneQ', async(req, res)=> {
   
   app.get('/api/getAllQ', async(req, res)=> {
       try{
-              const Questions = await Q.find({})
+              const Questions = await Q.find({}).populate("user")
               res.status(200).send(Questions)
       }catch(e){
           console.log(e)
@@ -205,9 +296,7 @@ app.post('/api/addOneQ', async(req, res)=> {
       try{
         const {search} = req.params
         const qSearch = await Q.find({q: {$regex: `${search}`}})
-        console.log(qSearch);
-        const answer = qSearch.length ? res.status(200).send(qSearch) : res.status(400).json(["לא נמצאה שאלה"])
-        // res.status(200).send(qSearch)
+        res.status(200).send(qSearch)
       }catch(e){
         console.log(e)
         res.status(500).send({message:e})
@@ -228,6 +317,7 @@ app.post('/api/addOneQ', async(req, res)=> {
     app.post('/api/addAllQ', async(req, res)=> {
       try{
               const Questions = Q.insertMany(req.body) 
+              Questions.save()
               res.status(200).send(Questions)
       }catch(e){
           console.log(e)
@@ -298,7 +388,7 @@ app.post('/api/addOneQ', async(req, res)=> {
   
   app.get('/api/getAllA', async(req, res)=> {
     try{
-            const Answers = await A.find({}).populate("q_id") 
+            const Answers = await A.find({}).populate({path: "q_id", populate: {path:"user"}}).exec()
             if(!Answers){
             res.status(404).send({message:"no such A"})
             }
@@ -320,11 +410,23 @@ app.post('/api/addOneQ', async(req, res)=> {
         res.status(500).send({message:e})
     }
   })
+
+  app.get("/api/getQAndABySearch/:search", async(req, res)=>{
+    try{
+    const {search} = req.params
+    const answers = await A.find({}).populate({path: "q_id", populate: {path:"user"}}).exec() 
+    const aArr = answers.filter(ans=> ans.q_id.q.includes(search))
+    res.status(200).send(aArr)
+  }catch(e){
+    console.log(e)
+    res.status(500).send({message:e})
+  }
+  })
   
   app.delete('/api/delete/deleteOneA/:id', async (req,res) => {
     try{
         const { id } = req.params
-        const deletedA = await A.findOneAndDelete({id: id})
+        const deletedA = await A.findOneAndDelete({_id: id})
         if(!deletedA){
             res.status(404).send({message:"no such A with the specified id"})
         }
@@ -390,7 +492,7 @@ app.post('/api/addOneQ', async(req, res)=> {
           app.delete('/api/delete/deleteOneTip/:id', async (req,res) => {
             try{
                 const { id } = req.params
-                const deletedTip = await Tips.findOneAndDelete({id: id})
+                const deletedTip = await Tips.findOneAndDelete({_id: id})
                 if(!deletedTip){
                     res.status(404).send({message:"no such todo with the specified id"})
                 }
@@ -417,59 +519,33 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           }
           )
-          // res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
-   
-          app.post("/api/YtKey", async(req, res)=> {
-            try{
-            const apiKey = REACT_APP_API_KEY_YT
-            const postKey = new Yt({
-              apiKey: apiKey
-            })
-          await postKey.save()
-          res.status(200).send(postKey)
-        }catch(e){
-          console.log(e)
-          res.status(500).send({message:e})
-        }
-          })
 
-          
-
-          app.post("/api/YtKey", async(req, res)=> {
-            try{
-            const apiKey = REACT_APP_API_KEY_YT
-            const postKey = new Yt({
-              apiKey: apiKey
-            })
-          await postKey.save()
-          res.status(200).send(postKey)
-        }catch(e){
-          console.log(e)
-          res.status(500).send({message:e})
-        }
-          })
-          
-          app.get('/api/getYtKey', async(req, res)=> {
-            try{
-                    const key = await Yt.findOne({})
-                    res.status(200).send(key)
-            }catch(e){
+          app.put('/api/Tips/updateTips/:id', async (req,res) => {
+            const { id } = req.params
+            const updates = Object.keys(req.body);
+            const isValidOperation = updates.every((update) =>
+            allowedUpdate.includes(update)
+            );
+            
+            if (!isValidOperation) {
+                res.status(400).send({message: "Invalid updates"})
+            } else{
+            
+            try {
+                const updateTips = await Tips.findOne({_id: id})
+              if (!updateTips) {
+                res.status(404).send({message: "A does not exist"})
+              }
+              updates.forEach((update) => (updateTips[update] = req.body[update]));
+              await updateTips.save();
+              res.status(200).send(updateTips)
+            } catch (e) {
                 console.log(e)
                 res.status(500).send({message:e})
-            }
-          })
-
-          app.delete('/api/delYt', async(req, res)=> {
-            try{
-              const { id } = req.body
-                    const key = await Yt.findOneAndDelete({id: id})
-                    res.status(200).send(key)
-            }catch(e){
-                console.log(e)
-                res.status(500).send({message:e})
-            }
-          })
-
+                 }
+                }
+                })
+         
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
