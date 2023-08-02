@@ -4,7 +4,6 @@ import MangerToolKit from '../mangerToolKit/MangerToolKit'
 import axios from 'axios'
 import SearchBar from '../SearchBar/SearchBar'
 
-
 const UserManager = () => {
 
   const [questions, setQuestions] = useState([])
