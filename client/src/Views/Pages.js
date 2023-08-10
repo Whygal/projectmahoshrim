@@ -44,7 +44,6 @@ const [isManager, setIsManager] = useState(false)
                                     </MyContext.Provider>
                                     }/>
                                     <Route path="/Register" element={<Register/>}/>
-                                  
                                     <Route path="/" element={<Main/>}/>
                                     <Route path="/AskQuestion" element={
                                     <MyContext.Provider value={{userId}}>

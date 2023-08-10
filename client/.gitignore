@@ -10,6 +10,7 @@
 ./client/src/Key/key.js
 ./client/src/Constants
 ./client/src/Constants/Const.js
+./src/Constants
 # testing
 /coverage
 
