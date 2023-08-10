@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+
+import React, {useState, useContext} from 'react'
 import MyContext from '../Context'
 import {Route, Routes} from "react-router-dom"
 import AskQuestion from "../components/AskQuestion/AskQuestion"
-import LastQuestion from "../components/LastQuestion/LastQuestion"
 import "./style.css"
 import Main from "../components/Main/Main"
 import VideoCourses from "../components/VideoCourses/VideoCourses"
@@ -18,34 +18,42 @@ import AnswerQuestion from '../components/AnswerQuestion/AnswerQuestion'
 import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
-import ChangePass from '../components/ChangePass/ChangePass'
-import {EmailJs} from '../components/EmailJs/EmailJs'
+import SingleVideo from '../components/SingleVideo/SingleVideo'
+// import EmailJs from "../components/EmailJs/EmailJs"
 import "./style.css"
 
 
+
 const Pages = () => {
-
-  const [username, setUsername] = useState("")
-
-
+  
+const [usernameLog, setUsernameLog] = useState("")
+const [name, setName] = useState("")
+const [userId, setUserId] = useState("")
+const [isManager, setIsManager] = useState(false)
   return (
-          <MyContext.Provider value={{username, setUsername}}>
             <div className='views'>
             <div className='page'>
+            <MyContext.Provider value={{name, isManager}}>
             <Header/>
+            </MyContext.Provider>
                           <div className='pages'>
                             <Routes>
-                                    <Route path="/Login" element={<Login/>}/>
+                                    <Route path="/Login" element={
+                                    <MyContext.Provider value={{usernameLog, setUsernameLog, setName, setUserId, setIsManager}}>
+                                    <Login/>
+                                    </MyContext.Provider>
+                                    }/>
                                     <Route path="/Register" element={<Register/>}/>
                                   
                                     <Route path="/" element={<Main/>}/>
-                                    <Route path="/AskQuestion" element={<AskQuestion/>}/>
-                                    <Route path="/LastQuestion" element={<LastQuestion/>}/>
-                                    <Route path="/ChangePass" element={<ChangePass/>}/>
-                                    {/* <Route path="/VideoCourses" element={<VideoCourses/>}/> */}
+                                    <Route path="/AskQuestion" element={
+                                    <MyContext.Provider value={{userId}}>
+                                    <AskQuestion/>
+                                    </MyContext.Provider>
+                                    }/>
                                     <Route path="/Tips" element={<Tips/>}/>
                                     <Route path="/Contact" element={<Contact/>}/>
-                                    <Route path="/EmailJs" element={<EmailJs/>}/>
+                                    {/* <Route path="/EmailJs" element={<EmailJs/>}/> */}
                                     <Route path="/About" element={<About/>}/>
                                     <Route path="*" element={<NotFound/>}/>
                                     <Route path="/Main" element={<Main/>}/>
@@ -53,13 +61,15 @@ const Pages = () => {
                                     <Route path="/postQuestion" element={<PostQuestion/>}/>
                                     <Route path="/UserManager" element={<UserManager/>}/>
                                     <Route path="/Admin" element={<Admin/>}/>
+                                    <Route path="/SingleVideo/:id" element={<SingleVideo/>}/>
+                                    <Route path="/VideoCourses" element={<VideoCourses/>}/>
                             </Routes>
                           </div>
                   <Footer />
                   </div>
                   </div>  
-          </MyContext.Provider>
   )
 }
+
 
 export default Pages;

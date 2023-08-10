@@ -4,14 +4,10 @@ import { Link } from 'react-router-dom'
 import logo from "../../images/LOGO.jpg"
 import login from '../../images/LOGIN.png'
 import MyContext from '../../Context'
-
-
+import { Breadcrumbs } from '@mui/material'
 
 const Header = () => {
-
-  const dataFromContext = useContext(MyContext) 
-
-
+  const dataFromContext = useContext(MyContext)
 
   return (
     <nav className='header'>
@@ -22,17 +18,20 @@ const Header = () => {
         <div className='divLogoImg' >
             <Link to='/Main'><img className='logoImg' src={logo} alt=""></img></Link>
         </div>
-       <div>{"שלום "+dataFromContext.username}</div>
-        <div className='pages'>
-            <Link to='/Main' className='line'><li>דף ראשי</li></Link>
-            /
-            <Link to='/AskQuestion' className='line'><li>שאל את הרב</li></Link>
-            /
-            <Link to='/VideoCourses' className='line'><li>כל השיעורים</li></Link>
-            /
-            <Link to='/Tips' className='line'><li>טיפים</li></Link>
-            /
-            <Link to='/Contact' className='line'><li>צור קשר</li></Link>
+
+        <div>{dataFromContext.name ? 'ברוך הבא '+dataFromContext.name  : <div></div>}</div>
+          
+        <div className='router'>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to='/Main' className='line'>דף ראשי</Link>
+            <Link to='/AskQuestion' className='line'>שאל את הרב</Link>
+            <Link to='/VideoCourses' className='line'>כל השיעורים</Link>
+            <Link to='/Tips' className='line'>טיפים</Link>
+            <Link to='/Contact' className='line'>צור קשר</Link>
+            {dataFromContext.isManager === true ? 
+            <Link to='/UserManager' className='line'>עמוד מנהל</Link>
+            : null}
+            </Breadcrumbs>
         </div>
     </nav>
   )

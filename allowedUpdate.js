@@ -1,1 +1,1 @@
-export const allowedUpdate = ["q", "a", "tip"]
+export const allowedUpdate = ["q", "a", "tip", "isManager"]

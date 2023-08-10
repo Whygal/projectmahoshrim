@@ -6,8 +6,40 @@
 .videos{
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .title{
     text-align: center;
+}
+.all-Videos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 5%;
+}
+.lineTn{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    height: 150px;
+    margin: 3rem;
+    float: left;
+}
+
+.TnImg {
+  width: 110%;
+  height: 110%;
+  border-radius: 4%;
+}
+
+.TnImg:hover{
+    width: 115%;
+    height: 115%; 
+    border-radius: 0%;
+}
+
+.lineTn .title {
+  margin-top: 10px;
 }
