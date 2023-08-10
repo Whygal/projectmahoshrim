@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import Question from '../Question/Question'
 import "./style.css"
 const LastQuestion = ({data}) => {
+  
   const [allQ, setAllQ] = useState([])
   const [num, setNum] = useState(-5)
 
   const moreFive = ()=> {
    setNum(num -5)
   }
-
 
   return (
     <div className='LastQuestion'>
