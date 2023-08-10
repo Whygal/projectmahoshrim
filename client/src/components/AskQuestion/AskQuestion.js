@@ -29,11 +29,10 @@ const AskQuestion = () => {
   const agree = ()=> {
     setAgreeToPublish(!agreeToPublish)
   }
-
   const noQ = () => {
     setError("אתה חייב להתחבר בשביל לשאול שאלה")
   }
-  
+
   return (
     <div className='ask'>
      <h5>מה השאלה?</h5>

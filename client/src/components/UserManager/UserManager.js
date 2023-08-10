@@ -3,15 +3,22 @@ import Question from '../Question/Question'
 import MangerToolKit from '../mangerToolKit/MangerToolKit'
 import axios from 'axios'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import SearchBar from '../SearchBar/SearchBar'
 
 =======
+=======
+>>>>>>> 40e986f8881a6fe94e2ad292e4f0c0e879e14baa
 import EditBox from "../EditBox/EditBox"
 import AnsBox from '../../AnsBox/AnsBox'
 import { Button, FormControl, Input, TextField } from '@mui/material'
 import "./style.css"
 import Users from '../../Users/Users'
+<<<<<<< HEAD
 >>>>>>> 9075408def226b4e42e04122ffc6ad7515d45934
+=======
+
+>>>>>>> 40e986f8881a6fe94e2ad292e4f0c0e879e14baa
 const UserManager = () => {
   // Q get state
   const [questions, setQuestions] = useState([])
