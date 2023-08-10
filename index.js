@@ -504,7 +504,6 @@ app.post('/api/addOneQ', async(req, res)=> {
             }
           })
 
-
           app.post('/ChangePass/:email', async (req,res)=> {
             try{
               const {email} = req.params

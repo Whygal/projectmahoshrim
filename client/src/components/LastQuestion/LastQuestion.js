@@ -9,7 +9,6 @@ const LastQuestion = ({data}) => {
    setNum(num -5)
   }
 
-
   return (
     <div className='LastQuestion'>
         {data.slice(num).reverse().map((q)=> 

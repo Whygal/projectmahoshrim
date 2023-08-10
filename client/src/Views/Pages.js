@@ -18,11 +18,8 @@ import AnswerQuestion from '../components/AnswerQuestion/AnswerQuestion'
 import PostQuestion from '../components/PostQuestion/PostQuestion'
 import UserManager from '../components/UserManager/UserManager'
 import Admin from '../components/Admin/Admin'
-import SingleVideo from '../components/SingleVideo/SingleVideo'
-// import EmailJs from "../components/EmailJs/EmailJs"
-import "./style.css"
-
-
+import ChangePass from '../components/ChangePass/ChangePass'
+import {EmailJs} from '../components/EmailJs/EmailJs'
 
 const Pages = () => {
   
