@@ -19,7 +19,8 @@
     "start": "nodemon index.js",
     "start_server": "nodemon server.js",
     "dev": "concurrently \"nodemon index.js\" \"cd client && npm start\"",
-    "git": "git add . && git commit -m\"concurrently\" && git push"
+    "git": "git add . && git commit -m\"concurrently\" && git push",
+    "render-postbuild": "cd client && npm install yarn && yarn run build"
   },
   "keywords": [],
   "author": "",
