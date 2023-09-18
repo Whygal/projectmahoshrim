@@ -3,7 +3,7 @@ import "./VideoCourses.css";
 import YoutubeEmbed from "./YoutubeEmbed";
 import Title from "./Title";
 import {Button} from "@mui/material"
-import { ApiKey } from "../../Constants/Const";
+import { ApiKey, BASE_URL } from "../../Constants/Const";
 import {Link} from "react-router-dom";
 
 const VideoCourses = () => {
@@ -12,7 +12,7 @@ const [open, setOpen] = useState(false)
 
 const updateVideos = async () => {
   try{
-const res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${ApiKey}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`)
+const res = await fetch(`${BASE_URL}/api/dataYT`)
 const ans = await res.json()
 setVideo(ans)
 setOpen(!open)
@@ -22,7 +22,6 @@ setOpen(!open)
 }
 
   const setVideos = () => {
-    console.log(videos);
     if(open){
     const enyVideo = videos.items
     enyVideo.splice(-1)

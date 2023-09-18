@@ -4,7 +4,7 @@ import { BASE_URL } from '../../Constants/Const';
 import { useNavigate } from 'react-router-dom';
 import Form from "../Form/Form"
 import Email from "../Email/Email"
-import { Input } from '@mui/material';
+import { Input, Button } from '@mui/material';
 import "./style.css"
 const Register = () => {
   
@@ -70,7 +70,7 @@ const Register = () => {
         emailValid={emailError}
         setEmailIsErrorFunc={setEmailIsErrorFunc}
         />
-        {isStrong === "strong" ?  <button onClick={register}>הרשם</button> : <div></div>}
+        {isStrong === "strong" ?  <Button  size='small' color="secondary" variant='contained' onClick={register}>הרשם</Button> : <div></div>}
     </div>
     <div>{error ? errorType === "username" ? 
     " השם: " + error + " כבר תפוס, אולי תנסה שם אחר? " : errorType === "email" ? 

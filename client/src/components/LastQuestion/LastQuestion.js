@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Question from '../Question/Question'
+import { Button } from '@mui/material'
 import "./style.css"
 const LastQuestion = ({data}) => {
   
@@ -21,7 +22,7 @@ const LastQuestion = ({data}) => {
         user={q.q_id.user}
         />
         )}
-        <button onClick={moreFive}>הצג עוד שאלות</button>
+        <Button onClick={moreFive}>הצג עוד שאלות</Button>
     </div>
   )
       }

@@ -11,8 +11,13 @@ const SearchBar = ({input, setInput, data}) => {
     const getQSearch = async ()=> {
       const response = await fetch(`http://localhost:8000/api/getQAndABySearch/${input}`)
       const answer = await response.json()
-      // console.log(answer);
-      setQSearch(answer)
+      
+      console.log(data)
+      if(answer.message === "No q found."){
+        setQSearch([{_id: " אין שאלה כזאת", q_id:{q: "אין שאלה כזאת", user:{username: "אין שאלה כזאת"}}, a:"אין שאלה כזאת",}  ])
+      }else{
+       setQSearch(answer) 
+      }
   }
 
    const handleSubmit = (e)=> e.preventDefault()

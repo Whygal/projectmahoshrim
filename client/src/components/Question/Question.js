@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Box } from '@mui/material';
+import { TextField, Typography, Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Question = ({ q, a, user }) => {
   const [open, setOpen] = useState(false);
@@ -9,7 +10,7 @@ const Question = ({ q, a, user }) => {
   };
 
   return (
-    <Box className='sQ' mb={2} p={2} boxShadow={3}>
+    <Box className='sQ' mb={2} p={2} boxShadow={3} display={"flex"} flexDirection={"column"} alignItems={"center"}>
       <TextField
         label={user ? `${user.username} שואל:` : ''}
         onClick={handleAChange}
@@ -39,6 +40,7 @@ const Question = ({ q, a, user }) => {
           />
         </Box>
       )}
+      {q === "אין שאלה כזאת" ? <Link to={"/AskQuestion"}><Button size='small' color="secondary" variant='contained'>לשליחת שאלה לחץ כאן</Button></Link>: <div></div>}
     </Box>
   );
 };

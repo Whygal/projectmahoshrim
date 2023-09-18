@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import Question from '../Question/Question'
 import MangerToolKit from '../mangerToolKit/MangerToolKit'
 import axios from 'axios'
 import EditBox from "../EditBox/EditBox"
-import AnsBox from '../../AnsBox/AnsBox'
+import AnsBox from '../AnsBox/AnsBox'
+import Questions from './Questions/Questions'
 import { Button, FormControl, Input, TextField } from '@mui/material'
 import "./style.css"
 import Users from '../../Users/Users'
+import Question from '../Question/Question'
 const UserManager = () => {
   // Q get state
   const [questions, setQuestions] = useState([])
@@ -48,54 +49,6 @@ const UserManager = () => {
   const [blockUsers, setBlockUsers] = useState([])
   
   // async func
-  const getQ = async () => {
-    const response = await fetch(`http://localhost:8000/api/getAllQ`)
-    const answer = await response.json()
-    setQuestions(answer)
-  }
-
-  const q_idToDel = (childData) => {
-    const q = ans.filter((a)=> a.q_id._id === childData)
-    const qCheck = q.map((a)=> a._id)
-    if(qCheck !== []){
-      const endpoints = [`http://localhost:8000/api/delete/deleteOneQ/${childData}`, 
-    `http://localhost:8000/api/delete/DeleteOneA/${qCheck}`]
-      
-    axios.all(endpoints.map((endpoints)=> axios.delete(endpoints))).then((res)=> {
-      if(res.data.message){
-        console.log(res.data.message)
-      }else{
-        console.log(res.data)
-      }
-    })
-    }else{
-      axios.delete(`http://localhost:8000/api/delete/DeleteOneA/${childData}`).then((res)=> {
-        if(res.data.message){
-          console.log(res.data.message)
-        }else{
-          console.log(res.data)
-        }
-      })
-    }
-  }
-
-  const editQ = async () => {
-   axios.put(`http://localhost:8000/api/Q/updateQ/${q_idToEdText}`, {q: editedQ}).then((res)=> {
-    if(res.data.message){
-      console.log(res.data.message)
-      setQ_idToEdText("")
-    }else{
-      console.log(res.data)
-    }
-   })
-  }
-
-  const postAns = async () => {
-    const q_id = post_a_box
-    axios.post("http://localhost:8000/api/addOneA", {q_id: q_id, a: toAns}).then((res)=> 
-    console.log(res)
-    )
-  }
   
   //A
  
@@ -222,9 +175,6 @@ const UserManager = () => {
  ).catch((e)=>console.log(e))
 }
 
-  //Q useEffect
-  useEffect(()=>{getQ()}, [questions])
-
   //a useEffect
   useEffect(()=>{getAllA()}, [ans])
 
@@ -266,54 +216,13 @@ const UserManager = () => {
   }
 
   return (
-    <div>         
+           
      <div className='manger'>
             <div className='general'>
-              <p>שאלות</p>
-                   <div className='qZone'>
-                              {questions.map((q)=> 
-                              <div key={q._id}>
-                              <Question
-                              q={q.q}
-                              user={q.user}
-                              > 
-                              </Question>
-                              <div>
-                                      <div>
-                                      <MangerToolKit
-                                      q_id={q._id}
-                                      q_Text={q.q}
-                                      q_idToDel={q_idToDel}
-                                      editFunc={editFunc}
-                                      toAnsQ={toAnsQ}
-                                      >                
-                                      </MangerToolKit>
-                                      </div>
-                                          {editBoxOpen && q_idToEdText === q._id ? 
-                                          <div>
-                                          <EditBox 
-                                          key={q.id}
-                                          q_Text={toEd}
-                                          setEditedQ={setEditedQ}
-                                          editQ={editQ}
-                                          />
-                                          </div>: <div></div>}
-                                          {ansBoxOpen && post_a_box === q._id ?
-                                          <div>
-                                            <AnsBox
-                                            setToAns={setToAns}
-                                            toAns={toAns}
-                                            postAns={postAns}
-                                            />
-                                          </div> :
-                                          <div></div>
-                                          }
-                              </div>
-                      </div>
-                      )}
-            </div>
-      </div>
-
+              <Questions
+              questions={questions} setQuestions={setQuestions} ans={ans} setQ_idToEdText={setQ_idToEdText} editedQ={editedQ} 
+              post_a_box={post_a_box} editBoxOpen={editBoxOpen} toAns={toAns} editFunc={editFunc}  q_idToEdText={q_idToEdText}
+               toAnsQ={toAnsQ} toEd={toEd}  setEditedQ={setEditedQ} ansBoxOpen={ansBoxOpen} setToAns={setToAns}/>
       <div className='general'>
       <div>שאלות עם  תשובה</div>
         {ans.map((a)=> a.q_id !== undefined) ? ans.map((a)=>

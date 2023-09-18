@@ -6,10 +6,11 @@ import mongoose from "mongoose";
 import { allowedUpdate } from "./allowedUpdate.js";
 import { createToken, validateToken } from './JWT.cjs'
 import bcrypt from 'bcrypt'
+import fetch from "node-fetch";
 
 
 config();
-const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME} = process.env
+const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME, API_KEY} = process.env
 const app = express()
 
 app.use(json())
@@ -99,6 +100,9 @@ const TipsSchema = new Schema({
   tip:{
     type: String,
     required: true
+  },
+  title:{
+    type: String,
   },
   date:{
     type: Date,
@@ -238,7 +242,7 @@ res.status(500).send({message:e})
 
   //user upgrade
   app.put("/api/isManager/:id", async(req, res)=>{
-    const {userId} = req.params
+    const {id} = req.params
     const update = Object.keys(req.body)
     const isValidOperation = update.every((update) =>
     allowedUpdate.includes(update)
@@ -248,14 +252,14 @@ res.status(500).send({message:e})
         res.status(400).send({message: "Invalid updates"})
     }else{
       try{
-      const getUser = await Users.findOne({id: userId})
+      const getUser = await Users.findOne({id: id})
     if(!getUser){
       res.status(400).send("No User")
       return
     }
     update.forEach((update) => (getUser[update] = req.body[update]));
       await getUser.save();
-      res.status(200).send(getUser.isManager)
+      res.status(200).send(getUser)
   } catch (e){
     console.log(e)
         res.status(500).send({message:e})
@@ -296,6 +300,9 @@ app.post('/api/addOneQ', async(req, res)=> {
       try{
         const {search} = req.params
         const qSearch = await Q.find({q: {$regex: `${search}`}})
+        if(!qSearch){
+          res.status(404).send({message: "not found"})
+        }
         res.status(200).send(qSearch)
       }catch(e){
         console.log(e)
@@ -414,9 +421,14 @@ app.post('/api/addOneQ', async(req, res)=> {
   app.get("/api/getQAndABySearch/:search", async(req, res)=>{
     try{
     const {search} = req.params
-    const answers = await A.find({}).populate({path: "q_id", populate: {path:"user"}}).exec() 
-    const aArr = answers.filter(ans=> ans.q_id.q.includes(search))
-    res.status(200).send(aArr)
+    const q = await Q.find({q: {$regex: `${search}`}})
+    const fQId = q.map(id=>id)     
+    const answers = await A.find({q_id: fQId}).populate({path: "q_id", populate: {path:"user"}}).exec()
+    if (answers.length === 0) {
+      res.status(404).send({ message: "No q found."});
+  } else {
+      res.status(200).send(answers);
+  }
   }catch(e){
     console.log(e)
     res.status(500).send({message:e})
@@ -468,8 +480,10 @@ app.post('/api/addOneQ', async(req, res)=> {
         app.post('/api/postTip', async(req, res)=> {
           try{
             const tip = req.body.tip
+            const title = req.body.title
                   const NewTip = new Tips({
-                    tip:tip
+                    tip:tip,
+                    title:title
                   })
                   await NewTip.save()
                   res.status(200).send(NewTip)
@@ -521,49 +535,20 @@ app.post('/api/addOneQ', async(req, res)=> {
           }
           )
           // res.status(200).send({username:userLogged.username, _id:userLogged._id, email:userLogged.email})
-   
+          
 
-     
-          app.post("/api/YtKey", async(req, res)=> {
-            try{
-            const apiKey = REACT_APP_API_KEY_YT
-            const postKey = new Yt({
-              apiKey: apiKey
-            })
-          await postKey.save()
-          res.status(200).send(postKey)
-        }catch(e){
-          console.log(e)
-          res.status(500).send({message:e})
-        }
-          })
+        app.get("/api/dataYT", async (req,res)=>{
+          try{
+            const url = `https://youtube.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=UC0fHnO_sETvwrpnXySUsOCA&part=snippet,id&order=date&maxResults=20`;
+          const response = await fetch(url);
+          const data = await response.json();
+          res.status(200).send(data)
+          }catch(e){
+            console.log(e)
+            res.status(500).send({message:e})
+          }
+        })
 
-          app.put('/api/Tips/updateTips/:id', async (req,res) => {
-            const { id } = req.params
-            const updates = Object.keys(req.body);
-            const isValidOperation = updates.every((update) =>
-            allowedUpdate.includes(update)
-            );
-            
-            if (!isValidOperation) {
-                res.status(400).send({message: "Invalid updates"})
-            } else{
-            
-            try {
-                const updateTips = await Tips.findOne({_id: id})
-              if (!updateTips) {
-                res.status(404).send({message: "A does not exist"})
-              }
-              updates.forEach((update) => (updateTips[update] = req.body[update]));
-              await updateTips.save();
-              res.status(200).send(updateTips)
-            } catch (e) {
-                console.log(e)
-                res.status(500).send({message:e})
-                 }
-                }
-                })
-         
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

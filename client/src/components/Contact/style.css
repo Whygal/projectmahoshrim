@@ -3,9 +3,8 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
-    background-color: #0ab1a0;
+    background-color: rgb(229, 136, 229);
     width: 100vw;
-    /* background-color: rgba(6,179,163,255); */
     font-family: 'Amatic SC'
 }
 

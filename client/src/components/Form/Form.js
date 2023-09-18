@@ -3,7 +3,9 @@ import React from "react";
 import StrongPwd from "../StrongPwd/StrongPwd"
 import { Input } from "@mui/material";
 import "./style.css"
+
 const Form = ({setPasswordReg, setIsStrong}) => {
+  
     const [pwdInput, setPwdInput] = useState({password: ""});
     const [isError, setError] = useState(null);
     
@@ -18,16 +20,16 @@ const Form = ({setPasswordReg, setIsStrong}) => {
 
       // Error Handler
       setError(null);
-      let caps, small, num, specialSymbol;
+      
       
       if (password.length < 10) {
         setError(" הסיסמה חייבת להיות באורך 10 תווים לפחות, חסרים עוד " + crntLen + " תווים ");
         setIsStrong("")
       } else {
-        caps = (password.match(/[A-Z]/g) || []).length;
-        small = (password.match(/[a-z]/g) || []).length;
-        num = (password.match(/[0-9]/g) || []).length;
-        specialSymbol = (password.match(/\W/g) || []).length;
+        const caps = (password.match(/[A-Z]/g) || []).length;
+        const small = (password.match(/[a-z]/g) || []).length;
+        const num = (password.match(/[0-9]/g) || []).length;
+        const specialSymbol = (password.match(/\W/g) || []).length;
         if (caps < 1) {
           setError("חייב להשתמש באות גדולה באנגלית!");
           console.log(small);
